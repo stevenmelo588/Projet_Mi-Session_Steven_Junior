@@ -203,8 +203,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
   m_MoveRepeatDelay: 0.5
   m_MoveRepeatRate: 0.1
+  m_XRTrackingOrigin: {fileID: 0}
   m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_PointAction: {fileID: 1054132383583890850, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_MoveAction: {fileID: 3710738434707379630, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
@@ -218,6 +220,7 @@ MonoBehaviour:
   m_TrackedDeviceOrientationAction: {fileID: 1025543830046995696, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
+  m_CursorLockBehavior: 0
 --- !u!114 &512371301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -471,7 +474,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 361181824618086141, guid: cb669ccf7d92b704e94a3a1acfc21e13, type: 3}
       propertyPath: m_hasFontAssetChanged
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3336555744238342584, guid: cb669ccf7d92b704e94a3a1acfc21e13, type: 3}
       propertyPath: m_AnchorMax.x
@@ -663,6 +666,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33a5e2a92a917ac46b0291ecdc771f0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  backgroundMusicAudioSource: {fileID: 0}
+  backgroundAudioClips: []
+  uiAudioSource: {fileID: 0}
+  uiAudioSFX: []
 --- !u!1 &7383307020165072693
 GameObject:
   m_ObjectHideFlags: 0
@@ -672,8 +679,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7383307020165072694}
-  - component: {fileID: 7383307020165072695}
   - component: {fileID: 7383307020165072680}
+  - component: {fileID: 7383307020165072695}
   m_Layer: 0
   m_Name: --- AudioManager ---
   m_TagString: Untagged
@@ -706,7 +713,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 4978534670351002834, guid: 10add4ada4761104a91930020a03d10b, type: 2}
-  m_audioClip: {fileID: 8300000, guid: e55e5a7bfd076274480be683f0fcc9cb, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
