@@ -201,7 +201,8 @@ public class AudioManager : MonoBehaviour
     }
 
     IEnumerator ChangeAudioClip(float clipLengthSeconds = 0)
-    {
+    {        
+        lerpTime = 0;
         if(backgroundMusicAudioSource.clip != null)
             yield return null;
         // if (backgroundMusicAudioSource.volume != 1)
@@ -254,6 +255,7 @@ public class AudioManager : MonoBehaviour
  
         yield return new WaitForSeconds(clipLengthSeconds);
         backgroundMusicAudioSource.clip = backgroundAudioClips[UnityEngine.Random.Range(0, backgroundAudioClips.Length)];
+        lerpTime = 0;
         starting = true;
         backgroundMusicAudioSource.Play();
         Debug.Log($"Current Audio Clip : {backgroundMusicAudioSource.clip.name}\nAudio Source Lenght : {backgroundMusicAudioSource.clip.length}\nIs Starting : {starting}\nIs Ending : {ending}\n Clip length - 5 : {backgroundMusicAudioSource.clip.length - 5}\n");
@@ -273,7 +275,6 @@ public class AudioManager : MonoBehaviour
         ending = false;
         Debug.Log($"Ending : {ending}");
         backgroundMusicAudioSource.Play();
-        lerpTime = 0;
 
         // StartCoroutine(ChangeAudioClip());
     }

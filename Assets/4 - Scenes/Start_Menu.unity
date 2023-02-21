@@ -476,6 +476,10 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2771624461819815140, guid: cb669ccf7d92b704e94a3a1acfc21e13, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.000030517578
+      objectReference: {fileID: 0}
     - target: {fileID: 3336555744238342584, guid: cb669ccf7d92b704e94a3a1acfc21e13, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -608,10 +612,42 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3927252996872666738, guid: cb669ccf7d92b704e94a3a1acfc21e13, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3927252996872666738, guid: cb669ccf7d92b704e94a3a1acfc21e13, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3936665048173943771, guid: cb669ccf7d92b704e94a3a1acfc21e13, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.00004196167
+      objectReference: {fileID: 0}
+    - target: {fileID: 4442846975870745153, guid: cb669ccf7d92b704e94a3a1acfc21e13, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4442846975870745153, guid: cb669ccf7d92b704e94a3a1acfc21e13, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5597451200980011839, guid: cb669ccf7d92b704e94a3a1acfc21e13, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 332569307}
+    - target: {fileID: 5811756074145562349, guid: cb669ccf7d92b704e94a3a1acfc21e13, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5811756074145562349, guid: cb669ccf7d92b704e94a3a1acfc21e13, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5811756074145562349, guid: cb669ccf7d92b704e94a3a1acfc21e13, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7846398783220218814, guid: cb669ccf7d92b704e94a3a1acfc21e13, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -650,6 +686,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7846398784081987697, guid: cb669ccf7d92b704e94a3a1acfc21e13, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8550111781840735087, guid: cb669ccf7d92b704e94a3a1acfc21e13, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8550111781840735087, guid: cb669ccf7d92b704e94a3a1acfc21e13, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8550111781840735087, guid: cb669ccf7d92b704e94a3a1acfc21e13, type: 3}
+      propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -666,8 +714,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33a5e2a92a917ac46b0291ecdc771f0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backgroundMusicAudioSource: {fileID: 0}
-  backgroundAudioClips: []
+  backgroundMusicAudioSource: {fileID: 7383307020165072695}
+  backgroundAudioClips:
+  - {fileID: 8300000, guid: 2a6a0956feb63c943bfc08c51f4ee4f5, type: 3}
+  - {fileID: 8300000, guid: 5b91da8e9660e5f43ae7e91902aea3e1, type: 3}
+  - {fileID: 8300000, guid: ccd4a2bc761daa2419844d07d14b522a, type: 3}
+  - {fileID: 8300000, guid: 61fe4fd4d2160bd4c86c7babfb34fc41, type: 3}
+  - {fileID: 8300000, guid: 6477ae7e9dd829d419be6bc03e331e96, type: 3}
+  - {fileID: 8300000, guid: 39727c9b41cbdf547a93317b64e85fcb, type: 3}
+  - {fileID: 8300000, guid: 83cb2310429bd624d81e5b1e5d223b7e, type: 3}
+  - {fileID: 8300000, guid: 0a4c211d7f3fc974c8eff1fe200a0016, type: 3}
+  - {fileID: 8300000, guid: 1ea81ab2761d118488f9b4faf7c42367, type: 3}
+  - {fileID: 8300000, guid: e38a51705f0f26846ad31e37d9b2c611, type: 3}
+  - {fileID: 8300000, guid: db55db3ccaba8e24a886e23989e15d7a, type: 3}
+  - {fileID: 8300000, guid: bdafd76289736ed4c8ca970262ee9166, type: 3}
+  - {fileID: 8300000, guid: 9c58f9b6dac3dd3489b4ec98d40ec9a9, type: 3}
+  - {fileID: 8300000, guid: 3fe5400b8a76cc64f95eacf01af97336, type: 3}
+  - {fileID: 8300000, guid: 193d734dd48a78443a123b294709a7bc, type: 3}
   uiAudioSource: {fileID: 0}
   uiAudioSFX: []
 --- !u!1 &7383307020165072693
@@ -696,7 +759,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7383307020165072693}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 911.04193, y: 570.0164, z: -1826.8077}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
