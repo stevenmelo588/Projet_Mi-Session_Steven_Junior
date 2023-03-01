@@ -148,7 +148,7 @@ public class GameManager : MonoBehaviour
 
     public void RefreshAmmo() 
     {
-        ammoLeftTxt.text = ammoLeft.ToString("D3");
+        //ammoLeftTxt.text = ammoLeft.ToString("D3");
 
         if (ammoLeft <= 0)
         {
