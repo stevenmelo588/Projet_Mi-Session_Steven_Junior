@@ -13,7 +13,7 @@ public class MenuEditor : MonoBehaviour
     }
 
     static string[] searchInFolders = new[] { "Assets/Scenes/" };
-    
+
     static List<SceneAsset> GetSceneAssets()
     {
         string[] sceneGuids = AssetDatabase.FindAssets("t:SceneAsset", searchInFolders);
@@ -29,11 +29,10 @@ public class MenuEditor : MonoBehaviour
     [MenuItem("Tools/Update Scene Assets")]
     static void UpdateSceneAssets()
     {
-        if (!AssetDatabase.IsValidFolder(Path.Combine("Assets", "ScriptableObjects"))) ;
+        if (!AssetDatabase.IsValidFolder(Path.Combine("Assets", "ScriptableObjects")))
         {
             AssetDatabase.CreateFolder("Assets", "ScriptableObjects");
         }
-
 
         foreach (var sceneAsset in GetSceneAssets())
         {

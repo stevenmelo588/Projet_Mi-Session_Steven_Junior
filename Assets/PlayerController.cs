@@ -81,14 +81,15 @@ public class PlayerController : MonoBehaviour
         //can't move 
         else { return false; }
     }
-    void OnMove(InputValue Value)
+    //
+    public void OnMove(InputValue Value)
     {//get input value for player movement
         movementInput = Value.Get<Vector2>();
     }
 
     public void SwordAttack()
     {
-        LockMovement();
+        //LockMovement();
         if (spriteRenderer.flipX == true)
         {
             attack.AttackLeft();
@@ -97,6 +98,15 @@ public class PlayerController : MonoBehaviour
         {
             attack.AttackRight();
         }
+
+        //foreach (Collider2D collider in Physics2D.OverlapBoxAll(transform.position, GetComponent<BoxCollider2D>().size, 0))
+        //{
+        //    EnemyHealthController enemyHealth;
+        //    if (enemyHealth = collider.GetComponent<EnemyHealthController>())
+        //    {
+        //        enemyHealth.EnemyHit(1, transform.gameObject);
+        //    }
+        //}
     }
 
     public void EndSwordAttack()

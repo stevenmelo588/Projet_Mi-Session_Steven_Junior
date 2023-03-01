@@ -6,14 +6,15 @@ TagManager:
   tags:
   - Enemy
   - Canvas
+  - Slime
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
+  - Enemies
   - 
   - 
   - 

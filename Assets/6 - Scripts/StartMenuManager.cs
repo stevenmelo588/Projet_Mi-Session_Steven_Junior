@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class StartMenuManager : MonoBehaviour
 {
+    [SerializeField] Level test;
+
     [Header("--- UI/Player/Options Menu ---")]
     [SerializeField] private GameObject[] UICanvas;
     [SerializeField] private Selectable[] SelectedOnStart;
@@ -38,13 +40,13 @@ public class StartMenuManager : MonoBehaviour
     IEnumerator StartGameCoroutine()
     {
         yield return new WaitForSeconds(5);
-        SceneManager.LoadScene(4);
+        SceneManager.LoadScene(test.sceneName);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Confined;
     }
     public void BtnStart()
     {
-        SceneManager.LoadSceneAsync(2);
+        //SceneManager.LoadSceneAsync(2);
         StartCoroutine(StartGameCoroutine());
     }
 }

@@ -24,6 +24,8 @@ public class Loading : MonoBehaviour
     [Header("Only in use if loadSceneByName is empty")]
     [Tooltip("-1 = Load next scene, any positive number = build index")]
     [SerializeField] private int loadSceneByIndex = -1;
+    [Tooltip("Loads a Scene using a scriptable object")]
+    [SerializeField] private Level sceneToLoad;
 
     private bool anyKey = false;
 
@@ -48,6 +50,9 @@ public class Loading : MonoBehaviour
     
     void LoadScene()
     {
+        if (sceneToLoad != null)
+            async = SceneManager.LoadSceneAsync(sceneToLoad.sceneName);
+
         if (loadSceneByName != "") //If I have a name
         {
             async = SceneManager.LoadSceneAsync(loadSceneByName);

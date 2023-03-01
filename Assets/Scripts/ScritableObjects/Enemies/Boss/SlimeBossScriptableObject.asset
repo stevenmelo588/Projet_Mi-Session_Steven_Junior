@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 552e8ca2b927c7f46846560994852b8a, type: 3}
+  m_Name: SlimeBossScriptableObject
+  m_EditorClassIdentifier: 
+  shieldHealth: 0
+  maxHealth: 30
+  damage: 25
+  knockBack: 10
+  knockBackResetDelay: 0
+  enemySprite: {fileID: -218646670, guid: 65f90ff98071648468b01b2891f22d19, type: 3}
+  idleWalkState: IDLE_WALK_STATE
+  hitState: HIT_STATE
+  deathState: DEATH_STATE
+  attackStateRight: ATTACK_STATE
+  attackStateLeft: ATTACK_STATE_LEFT

@@ -10,12 +10,12 @@ public class SwordAttack : MonoBehaviour
 
     public float swordDamage = 3f;
 
-    public Collider2D swordColl;
+    public BoxCollider2D swordColl;
 
     Vector2 attackOffest;
 
     [System.Serializable]
-    public class SwordHitEnemyEvent : UnityEvent<Enemies> { }
+    public class SwordHitEnemyEvent : UnityEvent<Enemy> { }
     public SwordHitEnemyEvent OnSwordHitEnemy;
 
     void Awake()
@@ -38,32 +38,59 @@ public class SwordAttack : MonoBehaviour
     public void AttackRight()
     {
         swordColl.enabled = true;
+        //gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+
         transform.localPosition = attackOffest;
+        foreach (Collider2D collider in Physics2D.OverlapBoxAll(transform.position, swordColl.size, 0))
+        {
+            EnemyHealthController enemyHealth;
+            if (enemyHealth = collider.GetComponent<EnemyHealthController>())
+            {
+                enemyHealth.EnemyHit(1, transform.gameObject);
+            }
+        }
     }
 
     public void AttackLeft()
     {
         swordColl.enabled = true;
         transform.localPosition = new Vector2(-attackOffest.x, attackOffest.y);
+        foreach (Collider2D collider in Physics2D.OverlapBoxAll(transform.position, swordColl.size, 0))
+        {
+            EnemyHealthController enemyHealth;
+            if (enemyHealth = collider.GetComponent<EnemyHealthController>())
+            {
+                enemyHealth.EnemyHit(swordDamage, transform.gameObject);
+            }
+        }
     }
 
     public void StopAttack()
     { swordColl.enabled = false; }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.tag == "Enemy")
-        {
-            //Deal damage to the enemy
-            Enemies enemies = other.GetComponent<Enemies>();
+    //private void OnTriggerEnter2D(Collider2D other)
+    //{
+    //    //foreach (Collider2D collider in Physics2D.OverlapCircleAll(transform.position, swordColl.radius))
+    //    //{
+    //        EnemyHealthController enemyHealth;
+    //        if (enemyHealth = other.GetComponent<EnemyHealthController>())
+    //        {
+    //            enemyHealth.EnemyHit(1, transform.gameObject);
+    //        }
+    //    //}
 
-            if (enemies != null)
-            {
-                enemies.Health -= swordDamage;
-                OnSwordHitEnemy.Invoke(enemies);
-            }
-        }
-    }
+    //    //if (other.tag == "Enemy")
+    //    //{
+    //    //    //Deal damage to the enemy
+    //    //    Enemies enemies = other.GetComponent<Enemies>();
+
+    //    //    if (enemies != null)
+    //    //    {
+    //    //        enemies.Health -= swordDamage;
+    //    //        OnSwordHitEnemy.Invoke(enemies);
+    //    //    }
+    //    //}
+    //}
 }
 
 
