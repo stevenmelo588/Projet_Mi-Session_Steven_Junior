@@ -1,21 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    
-    public float moveSpeed = 1.0f;
-    public float collisionOffset = 0.5f;
+
+    public float moveSpeed = 1f;
+    public float collisionOffset = 0.05f;
     public ContactFilter2D movementFilter;
-    List<RaycastHit2D> castCollision = new List<RaycastHit2D>();
 
     SpriteRenderer spriteRenderer;
-    Vector2 movementInput;
+
+    Vector2 movementInput = Vector2.zero;
+
     Rigidbody2D rb;
+
     Animator anim;
+
+    //bool isMoving = false;
+
+    bool canMove = true;
+    public SwordAttack attack;
+
+    Collider2D swordColl;
+
+    List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
 
     // Start is called before the first frame update
     void Start()
@@ -25,62 +35,89 @@ public class PlayerController : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    // if movement input is not 0 try to move
     void FixedUpdate()
     {
-        if(movementInput != Vector2.zero)
-        {
-            bool sucess = TryMove(movementInput);
+        if(canMove) { 
+        if (movementInput != Vector2.zero)
+        {     
+                // if movement input is not 0 try to move
+               bool success = TryMove(movementInput);
 
-            if(!sucess )
+            if (!success)
             {
-                sucess = TryMove(new Vector2(movementInput.x, 0));
-                if (!sucess )
-                {
-                    sucess = TryMove(new Vector2(0, movementInput.y));   }
-
+                success = TryMove(new Vector2(movementInput.x, 0));
             }
-            anim.SetBool("IsMooving", sucess);
+            if (!success)
+            {
+                success = TryMove(new Vector2(0, movementInput.y));
+            }
+            anim.SetBool("isMoving", success);
         }
-        else { anim.SetBool("IsMooving", false); }
+        else
+        { anim.SetBool("isMoving", false); }
 
-        //set direction of sprite to movement direction
+        //Set direction of sprite 
+
         if (movementInput.x < 0)
-        {
-            spriteRenderer.flipX = true;
-        }
-        else if ( movementInput.x > 0)
-        { 
-            spriteRenderer.flipX = false;
+        { spriteRenderer.flipX = true; }
+        else if (movementInput.x > 0)
+        { spriteRenderer.flipX = false; }
         }
     }
 
-    private bool TryMove(Vector2 direction)
+    bool TryMove(Vector2 direction)
     {
-        if (direction != Vector2.zero)
+        if(direction != Vector2.zero)
         {
-            //Check the potential collision 
-            int count = rb.Cast(
-            movementInput, //X and Y  values between -1 and 1 that represent the direction from the body to look for collision 
-            movementFilter, //The setting that determine where a collision can occur on such as layers to collise with
-            castCollision, // List of collision to store the found collision into after the cast is finished
-            moveSpeed * Time.fixedDeltaTime + collisionOffset);// The amount to cast equal to the movement plus an offset
+            int count = rb.Cast(direction,//X and Y values between -1 and 1 
+                movementFilter,// Determine where a collisoin  
+                castCollisions, //List of collision to store the found collision after the cast 
+                moveSpeed * Time.fixedDeltaTime + collisionOffset * Time.fixedDeltaTime);// the amount to cast equal the movement and offest
 
             if (count == 0)
-            {
-                rb.MovePosition(rb.position + movementInput * moveSpeed * Time.fixedDeltaTime);
-                return true;
-            }
-            else
-            { return false; }
+                rb.MovePosition(rb.position + direction * moveSpeed * Time.fixedDeltaTime);
+            return true;
         }
-        else { // can't move if there's no direction to move in
-            return false; }
-  
+        //can't move 
+        else { return false; }
+    }
+    void OnMove(InputValue Value)
+    {//get input value for player movement
+        movementInput = Value.Get<Vector2>();
     }
 
-    void OnMove(InputValue movementValue)
+    public void SwordAttack()
     {
-        movementInput = movementValue.Get<Vector2>();
+        LockMovement();
+        if (spriteRenderer.flipX == true)
+        {
+            attack.AttackLeft();
+        }
+        else
+        {
+            attack.AttackRight();
+        }
+    }
+
+    public void EndSwordAttack()
+    {
+        UnLockMovement();
+        attack.StopAttack();
+    }
+
+    void OnFire()
+    {
+        anim.SetTrigger("SwordAttack");
+    }
+    
+    void LockMovement()
+    {
+        canMove = false;
+    }
+
+    void UnLockMovement()
+    {
+        canMove = true;
     }
 }
+
