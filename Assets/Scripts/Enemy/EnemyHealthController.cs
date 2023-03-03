@@ -36,7 +36,7 @@ public class EnemyHealthController : MonoBehaviour
         currentEnemyHealth -= damageAmount;
         OnHitEvent?.Invoke(attackSender);
 
-        if (currentEnemyHealth == 0)
+        if (currentEnemyHealth <= 0)
         {
             OnDeathEvent?.Invoke();
             IsDead = true;

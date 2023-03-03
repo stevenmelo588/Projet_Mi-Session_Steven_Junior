@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IDamageble 
+public interface IDamageble
 {
     public float Health { get; set; }
 
@@ -10,7 +10,7 @@ public interface IDamageble
 
     public bool Target { get; set; }
 
-   public void OnHit(float damage, Vector2 knockBack);
+    public void OnHit(float damage, Vector2 knockBack);
 
     public void Onhit(float damage);
 

@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
 
     Rigidbody2D rb;
 
+    //[SerializeField] 
     Animator anim;
 
     //bool isMoving = false;
@@ -27,9 +28,20 @@ public class PlayerController : MonoBehaviour
 
     List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
 
+    /*[SerializeField]*/ public const string PLAYER_IDLE = "PLAYER_IDLE";
+    /*[SerializeField]*/ public const string PLAYER_WALK = "PLAYER_WALK";
+    /*[SerializeField]*/ public const string PLAYER_ATTACK = "PLAYER_ATTACK";
+    /*[SerializeField]*/ public const string PLAYER_DEATH = "PLAYER_DEATH";
+
+    //private void Awake()
+    //{
+        
+    //}
+
     // Start is called before the first frame update
     void Start()
     {
+        //anim.Play(PLAYER_IDLE);
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -37,31 +49,36 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(canMove) { 
-        if (movementInput != Vector2.zero)
-        {     
+        if(canMove) {
+            if (movementInput != Vector2.zero)
+            {
                 // if movement input is not 0 try to move
-               bool success = TryMove(movementInput);
+                bool success = TryMove(movementInput);
 
-            if (!success)
-            {
-                success = TryMove(new Vector2(movementInput.x, 0));
+                if (!success)
+                {
+                    success = TryMove(new Vector2(movementInput.x, movementInput.y));
+                }
+                if (!success)
+                {
+                    success = TryMove(new Vector2(0, movementInput.y));
+                }
+                //anim.Play(PLAYER_WALK);
+                anim.SetBool("isMoving", success);
             }
-            if (!success)
-            {
-                success = TryMove(new Vector2(0, movementInput.y));
+            else
+                //anim.Play(PLAYER_IDLE);
+            anim.SetBool("isMoving", false);
+
+            //Set direction of sprite 
+            if (movementInput.x < 0)
+            { 
+                spriteRenderer.flipX = true; 
             }
-            anim.SetBool("isMoving", success);
-        }
-        else
-        { anim.SetBool("isMoving", false); }
-
-        //Set direction of sprite 
-
-        if (movementInput.x < 0)
-        { spriteRenderer.flipX = true; }
-        else if (movementInput.x > 0)
-        { spriteRenderer.flipX = false; }
+            else if (movementInput.x > 0)
+            {
+                spriteRenderer.flipX = false; 
+            }
         }
     }
 
@@ -89,7 +106,14 @@ public class PlayerController : MonoBehaviour
 
     public void SwordAttack()
     {
-        //LockMovement();
+        //swordColl.transform.position.x
+        //float attackDirection = (spriteRenderer.flipX) ? -1 : 1;
+            //swordColl.transform.localPosition = -swordColl.transform.position 
+        //attackDirection = (spriteRenderer.flipX) ? -swordColl.transform.position.x : swordColl.transform.position.x;
+
+        //attack.Attack(attackDirection);
+
+        LockMovement();
         if (spriteRenderer.flipX == true)
         {
             attack.AttackLeft();
@@ -117,6 +141,9 @@ public class PlayerController : MonoBehaviour
 
     void OnFire()
     {
+        //SwordAttack();
+        //anim.Play(PLAYER_ATTACK);
+        //EndSwordAttack();
         anim.SetTrigger("SwordAttack");
     }
     

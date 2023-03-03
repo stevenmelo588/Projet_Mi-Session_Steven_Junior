@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 552e8ca2b927c7f46846560994852b8a, type: 3}
   m_Name: BlueSmallSlimeSO
   m_EditorClassIdentifier: 
+  speed: 500
   shieldHealth: 0
   maxHealth: 1
   damage: 1
-  knockBack: 3
+  knockBack: 30
   knockBackResetDelay: 0.15
   enemySprite: {fileID: 1635228498, guid: 9fc462cc612ec3049b3597d4090c0394, type: 3}
   idleWalkState: IDLE_WALK_STATE

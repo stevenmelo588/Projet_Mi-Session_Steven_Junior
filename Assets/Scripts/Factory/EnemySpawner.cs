@@ -11,14 +11,14 @@ public interface IAbstractEnemyFactory
 
 public class EnemySpawner : MonoBehaviour
 {
-    private float _SpawnRadius = 1.5f;
-    //public static EnemySpawner Instance { get; private set; }
+    private float _SpawnRadius = 5f;
+    public static EnemySpawner Instance { get; private set; }
 
     //public static int TotalEnemyCount => GameManager.instance.totalEnemyCount;
-     
+
     //[SerializeField] private int totalEnemyCount = 100;
     //public int totalEnemyCount = 100;
-     
+
     private const int MAX_ENEMY_COUNT = 300;
     public static int enemyCount = 0;
 
@@ -26,16 +26,16 @@ public class EnemySpawner : MonoBehaviour
 
     //public GameObject Player { get; private set; }
     IAbstractEnemyFactory factory;
-
+     
     //public int TotalEnemyCount { get => totalEnemyCount; set => totalEnemyCount = 100; }
     //public GameObject Player { get => this.player; set => this.player = value; }/
 
     private void Awake()
     {
+        Instance = this;
         //if (Instance != null && Instance != this)
         //    Destroy(this.gameObject);
         //else
-        //    Instance = this;
 
         //EasyEnemyFactory.Instance.PopulateEnemyPool();
         //MediumEnemyFactory.Instance.PopulateEnemyPool();
@@ -91,6 +91,12 @@ public class EnemySpawner : MonoBehaviour
     // private void OnDrawGizmosSelected() {
     // }
     // .normalized
+
+    //private void Update()
+    //{
+    //    RandomPositionAroundPlayer();
+    //}
+
     Vector2 RandomPositionAroundPlayer() => (Vector2)GameManager.Instance.Player.transform.position + (Random.insideUnitCircle * _SpawnRadius);
     // Vector3 RandomPositionAroundPlayer() => player.transform.position + (Random.insideUnitSphere * _SpawnRadius);
 
@@ -105,6 +111,10 @@ public class EnemySpawner : MonoBehaviour
                 // Vector3 randOffset = Random.insideUnitSphere * 5;
                 // player.transform.position + randOffset.normalized;
                 enemy.transform.position = RandomPositionAroundPlayer();
+
+                //if (enemy.CompareTag("NoSpawn"))
+                //    enemy.transform.position = RandomPositionAroundPlayer();
+
                 enemyCount += 4;
             }
             yield return new WaitForSeconds(5f); //Default 15f

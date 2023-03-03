@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 552e8ca2b927c7f46846560994852b8a, type: 3}
   m_Name: GreenSmallSlimeSO
   m_EditorClassIdentifier: 
+  speed: 500
   shieldHealth: 0
   maxHealth: 5
   damage: 5
-  knockBack: 3
+  knockBack: 30
   knockBackResetDelay: 0.15
   enemySprite: {fileID: -1337190002, guid: 1c29c4937d16e1d4a84c23c3bc66ca18, type: 3}
   idleWalkState: IDLE_WALK_STATE

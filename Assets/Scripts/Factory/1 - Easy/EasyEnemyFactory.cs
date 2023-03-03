@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EasyEnemyFactory : MonoBehaviour, IAbstractEnemyFactory
 {
-    private static EasyEnemyFactory instance;
-    public static EasyEnemyFactory Instance { get { return instance; } }
+    //private static EasyEnemyFactory instance;
+    public static EasyEnemyFactory Instance { get; private set; }
 
     int WeakEnemyIndex, StrongEnemyIndex;
 
@@ -26,9 +26,9 @@ public class EasyEnemyFactory : MonoBehaviour, IAbstractEnemyFactory
     // Start is called before the first frame update
     void Awake()
     {
+        Instance = this;
         PopulateEnemyPool();
-        if (instance != this)
-            instance = this;
+        //if (instance != this)
 
         // if(Instance != null && Instance != this)
         // Destroy(this.gameObject);
@@ -37,9 +37,9 @@ public class EasyEnemyFactory : MonoBehaviour, IAbstractEnemyFactory
         //totalEnemyCount = GameManager.instance.totalEnemyCount;
     }
 
-    private void Start()
-    {
-    }
+    //private void Start()
+    //{
+    //}
 
     public void PopulateEnemyPool()
     {

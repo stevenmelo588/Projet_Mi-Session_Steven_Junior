@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterHealthMananger : MonoBehaviour, IDamageble
+public class CharacterHealthMananger : MonoBehaviour, IDamageble, ICloneable
 {
+    static private Canvas playerCanvas => GameManager.Instance.PlayerPanel;
+
     public GameObject life;
     Animator anim;
     Rigidbody2D rb;
@@ -14,26 +16,40 @@ public class CharacterHealthMananger : MonoBehaviour, IDamageble
 
     [SerializeField] bool isInvicibleEnable = false;
     [SerializeField] float invicibleTime = 0.25f;
-    float invicibleTimelaps = 0f; 
+    float invicibleTimelaps = 0f;
+
+    //Enemy enemy;
+    //Heatlhtext heatlhtext;
 
     public float Health
     {
         set
         {
-            if (value < _health)
+            if (value < _maxHealth)
             {
-                anim.SetTrigger("Hit");
-                RectTransform textTransform = Instantiate(life).GetComponent<RectTransform>();
-                textTransform.transform.position = Camera.main.WorldToScreenPoint(gameObject.transform.position);
+                //for(int i = 0; i < 1; i++)
+                //{
+                    //GameObject obj = ((GameObject)Clone());
+                    RectTransform textTransform = ((GameObject)Clone()).GetComponent<RectTransform>(); //Default -> Instanciate(life)
+                    textTransform.transform.position = Camera.main.WorldToScreenPoint(gameObject.transform.position);
 
-                Canvas canvas = GameObject.FindObjectOfType<Canvas>();
-                textTransform.SetParent(canvas.transform);
+                    Canvas canvas = FindObjectOfType<Canvas>();
+                    //Canvas canvas = obj.GetComponentInParent<Canvas>();
+                    textTransform.SetParent(canvas.transform);
+                    //obj.GetComponent<Heatlhtext>().SpawnText(value);
+                //}
+                //anim.Play(PlayerController.)
+                //anim.SetTrigger("Hit");
+
+                //(Canvas) playerCanvas
+
             }
 
-            _health = value;
+            _maxHealth = value; //_maxHealth -> default
 
             if (Health <= 0)
             {
+                //anim.Play(PlayerController.PLAYER_DEATH);
                 anim.SetBool("isAlive", false);
                 Target = false;
             }
@@ -41,7 +57,7 @@ public class CharacterHealthMananger : MonoBehaviour, IDamageble
 
         get
         {
-            return _health;
+            return _maxHealth;
         }
     }
 
@@ -74,11 +90,11 @@ public class CharacterHealthMananger : MonoBehaviour, IDamageble
          
     }
 
-    float _health = 100;
+    float _maxHealth = 100;
 
     bool _tragetable = true;
 
-     bool _invicible = false;
+    bool _invicible = false;
    
     // Start is called before the first frame update
     void Start()
@@ -88,6 +104,7 @@ public class CharacterHealthMananger : MonoBehaviour, IDamageble
         
         //make sur the player is alive
         anim.SetBool("isAlive", isAlive);
+        //ani
         col = GetComponent<Collider2D>();
     }
 
@@ -96,6 +113,12 @@ public class CharacterHealthMananger : MonoBehaviour, IDamageble
         if (!Invicible)
         {
             Health -= damage;
+
+            //enemy.enemyScriptableOBJ.
+            //heatlhtext.TextMesh.text = damage.ToString();
+            Heatlhtext.dmgText = damage.ToString();
+
+            //Heatlhtext.setDamage?.Invoke(damage);
 
             if (isInvicibleEnable)
             {
@@ -141,5 +164,8 @@ public class CharacterHealthMananger : MonoBehaviour, IDamageble
 
     }
 
- 
+    public object Clone()
+    {
+        return Instantiate(life);
+    }
 }

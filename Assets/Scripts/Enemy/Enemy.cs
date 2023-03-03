@@ -64,6 +64,7 @@ public class Enemy : MonoBehaviour
     }
     void Start()
     {
+        //Debug.Log(enemyScriptableOBJ.Speed);
         EnemyAnimator.Play(enemyScriptableOBJ.IDLE_WALK_STATE);
         // sprite.transform.position;
 
@@ -77,25 +78,25 @@ public class Enemy : MonoBehaviour
         // MoveTowardsPlayer();
         StartCoroutine(MoveTowardsPlayerCoroutine());
     }
-    void Update()
-    {
-        //if (enemyHealthController.isDead)       
-        //    Death();         
+    //void Update()
+    //{
+    //    //if (enemyHealthController.isDead)       
+    //    //    Death();         
 
-        if (transform.position.x > 0)
-            enemySpriteRenderer.flipX = true;
+    //    if (transform.position.x > 0)
+    //        enemySpriteRenderer.flipX = true;
 
-        // enemyCollider.transform.position = enemySpriteRenderer.sprite.rect.position;
-        // if(isDead){
-        //     StopCoroutine(MoveTowardsPlayer());
-        //     StartCoroutine(DisableEnemy());
-        // }
+    //    // enemyCollider.transform.position = enemySpriteRenderer.sprite.rect.position;
+    //    // if(isDead){
+    //    //     StopCoroutine(MoveTowardsPlayer());
+    //    //     StartCoroutine(DisableEnemy());
+    //    // }
 
-        // else
-        //     enemySpriteRenderer.flipX = false;
-        // enemyCollider.transform.position = enemySpriteRenderer.transform.position;
-        // Debug.Log($"{playerLocation} | {enemySpriteRenderer.transform.position} | {enemyCollider.transform.position}");
-    }
+    //    // else
+    //    //     enemySpriteRenderer.flipX = false;
+    //    // enemyCollider.transform.position = enemySpriteRenderer.transform.position;
+    //    // Debug.Log($"{playerLocation} | {enemySpriteRenderer.transform.position} | {enemyCollider.transform.position}");
+    //}
 
     public void PlayHitAnimation()
     {
@@ -166,7 +167,7 @@ public class Enemy : MonoBehaviour
     // }
 
     // Start is called before the first frame update
-    
+
     // public void Knockback(GameObject sender){
     //     StopAllCoroutines();
     //     EnemyAnimator.Play(enemyScriptableOBJ.HIT_STATE);
@@ -246,10 +247,18 @@ public class Enemy : MonoBehaviour
             {
                 Vector2 moveToDirection = (Player.transform.position - transform.position).normalized;
 
+                //print(moveToDirection.x);
+
+                if (moveToDirection.x < 0)
+                    enemySpriteRenderer.flipX = true;
+                else
+                    enemySpriteRenderer.flipX = false;
+
                 //EnemyAnimator.Play(enemyScriptableOBJ.IDLE_WALK_STATE);
                 //transform.position = Vector2.MoveTowards(transform.position, Player.transform.position, 2f * Time.fixedDeltaTime);
                 //enemyRigidbody2D.AddForce(moveToDirection * enemyScriptableOBJ.Speed * Time.fixedDeltaTime);
                 enemyRigidbody2D.AddForce(SPEED * Time.fixedDeltaTime * moveToDirection); //Supposedly provides better performance
+                //SPEED
             }
             // else
             // ReceiveDamage(10);
@@ -267,13 +276,39 @@ public class Enemy : MonoBehaviour
         // GC.Collect();
     }
 
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    Collider2D collider = collision.collider;
+    //    IDamageble damageble = collider.GetComponent<IDamageble>();
+
+    //    while (collider.IsTouchingLayers(LayerMask.NameToLayer("Player")))
+    //    {
+    //        if (damageble == collider.GetComponent<IDamageble>())
+    //        {
+    //            damageble.Onhit(enemyScriptableOBJ.Damage);
+    //        }
+    //    }
+
+    //}
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        Collider2D collider = collision.collider;
+        IDamageble damageble = collider.GetComponent<IDamageble>();
+
+        if (damageble != null)
+        {
+            damageble.Onhit(enemyScriptableOBJ.Damage);
+        }
+    }
+
     // private void FixedUpdate() {
     //     if(hittingPlayer)
     //         ReceiveDamage(10, player);        
     // }
 
     // Update is called once per frame
-    
+
 
     // public void MoveTowardsPlayer(){
     //     while (isDead == false && hittingPlayer == false)

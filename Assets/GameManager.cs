@@ -5,12 +5,20 @@ using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
+// If we want to be more specific with what we clone we can this Interface 
+// instead of the Generic ICloneable Interface
+public interface IPrototype
+{
+    public GameObject Clone();
+}
+
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
     public static GameManager Instance { get { return instance; } }
 
     public GameObject Player { get => player; set => player = value; }
+    public Canvas PlayerPanel { get => playerPanel; set => playerPanel = value; }
 
     //private LocomotionCharacterCrontroller playerInput;
     //private LoseHealth playerHealth;
@@ -24,7 +32,7 @@ public class GameManager : MonoBehaviour
     //[Header("--- Location TextMeshPro ---")]
     //[SerializeField] public TMP_Text txtLocation;
     [Header("--- UI/Player/Options Menu ---")]
-    [SerializeField] private GameObject PlayerPanel;
+    [SerializeField] private Canvas playerPanel;
     [SerializeField] private GameObject[] UICanvas;
     [SerializeField] private GameObject[] GameOverPanel;
     [SerializeField] private Selectable[] SelectedOnStart;
@@ -125,7 +133,7 @@ public class GameManager : MonoBehaviour
     private void PlayerCanvasActive()
     {
         pause = false;
-        PlayerPanel.SetActive(true);
+        PlayerPanel.gameObject.SetActive(true);
         for (int i = 0; i < UICanvas.Length; i++)
         {
             UICanvas[i].SetActive(false);
@@ -141,7 +149,7 @@ public class GameManager : MonoBehaviour
     private void MenuCanvasActive()
     {
         pause = true;
-        PlayerPanel.SetActive(false);
+        PlayerPanel.gameObject.SetActive(false);
         for (int i = 0; i < GameOverPanel.Length; i++)
         {
             GameOverPanel[i].SetActive(false);

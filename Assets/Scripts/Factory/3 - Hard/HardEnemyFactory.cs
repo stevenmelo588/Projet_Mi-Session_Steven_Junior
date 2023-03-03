@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class HardEnemyFactory : MonoBehaviour, IAbstractEnemyFactory
 {
-    private static HardEnemyFactory instance;
-    public static HardEnemyFactory Instance { get { return instance; } }
+    //private static HardEnemyFactory instance;
+    public static HardEnemyFactory Instance { get;  private set; }
 
     int WeakEnemyIndex, StrongEnemyIndex;
 
@@ -25,8 +25,8 @@ public class HardEnemyFactory : MonoBehaviour, IAbstractEnemyFactory
     // Start is called before the first frame update
     void Awake()
     {
-        if(instance != this)
-            instance = this;
+        //if(instance != this)
+        Instance = this;
 
         // if(Instance != null && Instance != this)
         //     Destroy(this.gameObject);

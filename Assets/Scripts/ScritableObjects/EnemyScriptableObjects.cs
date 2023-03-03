@@ -5,9 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyScriptableObject", menuName = "ScriptableObject/Enemies")]
 public class EnemyScriptableObjects : ScriptableObject
 {    
-    public const float SPEED = 100f;
 
+    public const float SPEED = 500f;
 
+    [SerializeField] private float speed;
 
     [Header("Enemy Stats")]
     [SerializeField] private float shieldHealth;
@@ -31,7 +32,16 @@ public class EnemyScriptableObjects : ScriptableObject
     public float ShieldHealth { get => shieldHealth; set => shieldHealth = value; }
     public float MaxHealth { get => maxHealth; set => maxHealth = value; }
     public float Damage { get => damage; set => damage = value; }
-    //public float Speed { get => SPEED; set => SPEED = value; }
+    public float Speed {
+        get => speed;
+        set => speed = (speed == 0) ? SPEED : value;
+        //{
+        //    if (speed != 0)
+        //        speed = value;
+        //    else
+        //        speed = SPEED;
+        //}
+    }
     public float KnockBack { get => knockBack; set => knockBack = value; }
     public Sprite EnemySprite { get => enemySprite; set => enemySprite = value; }
     // public Animator EnemyAnimator { get => enemyAnimator; set => enemyAnimator = value; }
@@ -57,7 +67,7 @@ public class EnemyScriptableObjects : ScriptableObject
         this.ShieldHealth = shieldHealth;
         this.MaxHealth = maxHealth;
         this.Damage = damage;
-        //this.Speed = speed;
+        this.Speed = speed;
         this.KnockBack = knockBack;
         this.KnockBackResetDelay = knockBackResetDelay;
         this.EnemySprite = enemySprite;

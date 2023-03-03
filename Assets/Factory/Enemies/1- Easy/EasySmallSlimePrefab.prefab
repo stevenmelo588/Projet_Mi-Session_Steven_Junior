@@ -142,10 +142,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: -1337190002, guid: 1c29c4937d16e1d4a84c23c3bc66ca18, type: 3}
+  m_SortingLayerID: -143156239
+  m_SortingLayer: 1
+  m_SortingOrder: 2
+  m_Sprite: {fileID: 1635228498, guid: 9fc462cc612ec3049b3597d4090c0394, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -173,7 +173,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.32, y: 0.32}
+    oldSize: {x: 2, y: 2}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -181,14 +181,14 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.06, y: 0.06}
-      - {x: -0.089999996, y: 0.03}
-      - {x: -0.089999996, y: -0.06}
-      - {x: -0.07, y: -0.089999996}
-      - {x: 0.08, y: -0.089999996}
-      - {x: 0.089999996, y: -0.06}
-      - {x: 0.089999996, y: 0.03}
-      - {x: 0.049999997, y: 0.06}
+    - - {x: -0.375, y: 0.375}
+      - {x: -0.5625, y: 0.1875}
+      - {x: -0.5625, y: -0.375}
+      - {x: -0.4375, y: -0.5625}
+      - {x: 0.5, y: -0.5625}
+      - {x: 0.5625, y: -0.375}
+      - {x: 0.5625, y: 0.1875}
+      - {x: 0.3125, y: 0.375}
 --- !u!50 &1018195970917109993
 Rigidbody2D:
   serializedVersion: 4
@@ -220,7 +220,7 @@ Animator:
   m_GameObject: {fileID: 3322381825316666306}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 06d6e88c6de53374cb93aacd9431812c, type: 2}
+  m_Controller: {fileID: 9100000, guid: d5c86c9fe4445064da8fd3ae1f692cb9, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -242,7 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8640fbc00d33e84aa2de710fbea5ef3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyScriptableOBJ: {fileID: 11400000, guid: a780e51f03ca423449f8fd225fffc45e, type: 2}
+  enemyScriptableOBJ: {fileID: 11400000, guid: 670424efc67f870419f866c920a0bbb1, type: 2}
   enemyHealthController: {fileID: 5951396318876419611}
   enemySpriteRenderer: {fileID: 3322381825316666309}
   enemyRigidbody2D: {fileID: 1018195970917109993}
