@@ -11,7 +11,7 @@ public interface IAbstractEnemyFactory
 
 public class EnemySpawner : MonoBehaviour
 {
-    private float _SpawnRadius = 5f;
+    private float _SpawnRadius = 10f;
     public static EnemySpawner Instance { get; private set; }
 
     //public static int TotalEnemyCount => GameManager.instance.totalEnemyCount;
@@ -26,7 +26,9 @@ public class EnemySpawner : MonoBehaviour
 
     //public GameObject Player { get; private set; }
     IAbstractEnemyFactory factory;
-     
+
+    [SerializeField] LayerMask _WhatIsGround;
+
     //public int TotalEnemyCount { get => totalEnemyCount; set => totalEnemyCount = 100; }
     //public GameObject Player { get => this.player; set => this.player = value; }/
 
@@ -97,11 +99,34 @@ public class EnemySpawner : MonoBehaviour
     //    RandomPositionAroundPlayer();
     //}
 
+    // Declare a Func<Vector2> delegate
+    // System.Func<Vector2> myFunc = () =>
+    // {
+    //     // Generate a random position using UnityEngine.Random
+    //     Vector2 randomPosition = new Vector2(Random.Range(0f, 1f), Random.Range(0f, 1f));
+    //     return randomPosition;
+    // };
+
+    // Call the delegate to generate a random position
+
+    // System.Func<Vector2> RandomPositionAroundPlayer = () =>
+    // {
+    //     //  = (Vector2)GameManager.Instance.Player.transform.position + (Random.insideUnitCircle * _SpawnRadius)
+    //     Vector2 randomPos;
+    //     do
+    //     {
+    //         randomPos = (Vector2)GameManager.Instance.Player.transform.position + (Random.insideUnitCircle * _SpawnRadius);
+    //     } while (Physics2D.OverlapCircle(randomPos, 0.5f, _WhatIsGround));
+
+    //     return randomPos;
+    // };
+
     Vector2 RandomPositionAroundPlayer() => (Vector2)GameManager.Instance.Player.transform.position + (Random.insideUnitCircle * _SpawnRadius);
     // Vector3 RandomPositionAroundPlayer() => player.transform.position + (Random.insideUnitSphere * _SpawnRadius);
 
     IEnumerator SpawnCoroutine()
     {
+        // Vector2 position = myFunc();
         while (enemyCount < MAX_ENEMY_COUNT)
         {
             for (int i = 0; i < 4; i++) // Default i = 4;
@@ -117,7 +142,7 @@ public class EnemySpawner : MonoBehaviour
 
                 enemyCount += 4;
             }
-            yield return new WaitForSeconds(5f); //Default 15f
+            yield return new WaitForSeconds(2.5f); //Default 15f
         }
     }
 }

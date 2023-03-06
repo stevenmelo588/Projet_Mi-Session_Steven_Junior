@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyScriptableObject", menuName = "ScriptableObject/Enemies")]
 public class EnemyScriptableObjects : ScriptableObject
 {    
-
     public const float SPEED = 500f;
 
     [SerializeField] private float speed;
@@ -34,7 +33,7 @@ public class EnemyScriptableObjects : ScriptableObject
     public float Damage { get => damage; set => damage = value; }
     public float Speed {
         get => speed;
-        set => speed = (speed == 0) ? SPEED : value;
+        set => speed = (speed != 0) ? value : SPEED;
         //{
         //    if (speed != 0)
         //        speed = value;

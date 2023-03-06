@@ -44,7 +44,11 @@ public class GameManager : MonoBehaviour
     //[HideInInspector] public int zombiesKilled = 0;
     public int totalEnemyCount = 100;
 
+    [SerializeField] private Level gameLevel;
     [SerializeField] private Level mainMenuLevel;
+    [SerializeField] private Level mainMenuLoadingLevel;
+    [SerializeField] private Level restartGameLoadingLevel;
+    // [SerializeField] private Level startMenuLoadingLevel;
     [SerializeField] private GameObject player;
 
     private void Awake()
@@ -82,13 +86,13 @@ public class GameManager : MonoBehaviour
     IEnumerator RestartGameCoroutine()
     {
         yield return new WaitForSeconds(3);
-        SceneManager.LoadSceneAsync(3);
+        SceneManager.LoadSceneAsync(gameLevel.sceneName);
     }
 
     IEnumerator MainMenuCoroutine()
     {
         yield return new WaitForSeconds(5);
-        SceneManager.LoadSceneAsync(1);
+        SceneManager.LoadSceneAsync(mainMenuLevel.sceneName);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
     }
@@ -117,7 +121,7 @@ public class GameManager : MonoBehaviour
             GameOverPanel[i].SetActive(i == panelIndex);
         }
     }
-
+    
     public void OnPause(InputAction.CallbackContext context)
     {
         if (pause = context.performed)
@@ -168,7 +172,7 @@ public class GameManager : MonoBehaviour
 
     public void BtnRetry()
     {
-        SceneManager.LoadSceneAsync(4);
+        SceneManager.LoadSceneAsync(restartGameLoadingLevel.sceneName);
         StartCoroutine(RestartGameCoroutine());
         Time.timeScale = 1.0f;
         PlayerCanvasActive();
@@ -178,9 +182,9 @@ public class GameManager : MonoBehaviour
 
     public void MainMenu()
     {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Confined;
-        SceneManager.LoadSceneAsync(5);
+        // Cursor.visible = false;
+        // Cursor.lockState = CursorLockMode.Confined;
+        SceneManager.LoadSceneAsync(mainMenuLoadingLevel.sceneName);
         StartCoroutine(MainMenuCoroutine());
     }
 

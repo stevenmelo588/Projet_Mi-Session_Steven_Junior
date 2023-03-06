@@ -245,8 +245,7 @@ public class Enemy : MonoBehaviour
         {
             if (Vector2.Distance(transform.position, Player.transform.position) > 0.5f)
             {
-                Vector2 moveToDirection = (Player.transform.position - transform.position).normalized;
-
+                Vector2 moveToDirection = Vector2.ClampMagnitude((Player.transform.position - transform.position).normalized, SPEED);
                 //print(moveToDirection.x);
 
                 if (moveToDirection.x < 0)
@@ -257,7 +256,9 @@ public class Enemy : MonoBehaviour
                 //EnemyAnimator.Play(enemyScriptableOBJ.IDLE_WALK_STATE);
                 //transform.position = Vector2.MoveTowards(transform.position, Player.transform.position, 2f * Time.fixedDeltaTime);
                 //enemyRigidbody2D.AddForce(moveToDirection * enemyScriptableOBJ.Speed * Time.fixedDeltaTime);
-                enemyRigidbody2D.AddForce(SPEED * Time.fixedDeltaTime * moveToDirection); //Supposedly provides better performance
+                // enemyRigidbody2D.MovePosition(SPEED * Time.fixedDeltaTime * moveToDirection);
+
+                enemyRigidbody2D.AddForce(SPEED * Time.deltaTime * moveToDirection); //Supposedly provides better performance
                 //SPEED
             }
             // else

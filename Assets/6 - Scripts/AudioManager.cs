@@ -283,7 +283,7 @@ public class AudioManager : MonoBehaviour
         // if (backgroundMusicAudioSource.volume < 1 && starting)
         // {
             // ending = false;
-            Debug.Log("test starting");
+            // Debug.Log("test starting");
             // lerpTime = 0;
             // lerpTime += (0.25f * Time.deltaTime);
             lerpTime = Mathf.Clamp01(lerpTime + LERP_MULTIPLIER * Time.deltaTime); // 0.25f default
@@ -304,7 +304,7 @@ public class AudioManager : MonoBehaviour
         // if (backgroundMusicAudioSource.volume == 1 && ending)
         // {
             // starting = false;
-            Debug.Log("test ending");
+            // Debug.Log("test ending");
             // lerpTime += (0.25f * Time.deltaTime);
             lerpTime = Mathf.Clamp01(lerpTime + (LERP_MULTIPLIER * Time.deltaTime));
             // lerpTime = Mathf.Clamp01(lerpTime + (0.25f * 0.5f));

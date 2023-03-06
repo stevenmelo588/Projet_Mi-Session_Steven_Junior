@@ -155,8 +155,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
   m_MoveRepeatDelay: 0.5
   m_MoveRepeatRate: 0.1
+  m_XRTrackingOrigin: {fileID: 0}
   m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_PointAction: {fileID: 1054132383583890850, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_MoveAction: {fileID: 3710738434707379630, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
@@ -170,6 +172,7 @@ MonoBehaviour:
   m_TrackedDeviceOrientationAction: {fileID: 1025543830046995696, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
+  m_CursorLockBehavior: 0
 --- !u!114 &512371301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,6 +198,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -218,6 +222,7 @@ MonoBehaviour:
   delay: 3
   loadSceneByName: Survival
   loadSceneByIndex: -1
+  sceneToLoad: {fileID: 11400000, guid: 51655328f366fb44a9fa28383db90533, type: 2}
 --- !u!114 &512371304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,10 +252,6 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: e4d8b6ad-e13a-4117-a12e-ecc5b71c3ea5
     m_ActionName: Player/Move
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: b2745912-a3c6-4880-bcca-5d593c249a18
-    m_ActionName: Player/Look
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: c5f9758b-6ed7-41a8-80fc-b7b20f4d18a5
@@ -325,20 +326,8 @@ MonoBehaviour:
     m_ActionName: UI/AnyKey
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: b6b8dc28-6ccd-4881-a8fd-546ee98be768
-    m_ActionName: Player/Aim[/Mouse/rightButton]
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: c5f9ac42-b13c-4356-82b1-5ab6499ec901
     m_ActionName: Player/Pause[/Keyboard/p,/Keyboard/escape]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 311487a6-ed10-4515-be48-496d60171024
-    m_ActionName: Player/Jump[/Keyboard/space]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 7d611d8a-fbaf-4b56-b59f-cc4fb19bb024
-    m_ActionName: Player/Sprint[/Keyboard/shift]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: UI
@@ -423,6 +412,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.2, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -672,6 +662,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1050083006}
   m_Father: {fileID: 0}
