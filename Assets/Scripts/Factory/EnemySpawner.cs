@@ -1,3 +1,4 @@
+//using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,68 +10,41 @@ public interface IAbstractEnemyFactory
     public abstract GameObject CreateStrongEnemy();
 }
 
+[DisallowMultipleComponent]
 public class EnemySpawner : MonoBehaviour
 {
     private float _SpawnRadius = 10f;
-    public static EnemySpawner Instance { get; private set; }
 
-    //public static int TotalEnemyCount => GameManager.instance.totalEnemyCount;
-
-    //[SerializeField] private int totalEnemyCount = 100;
-    //public int totalEnemyCount = 100;
+    private static EnemySpawner instance = null;
+    public static EnemySpawner Instance { get => (instance == null) ? instance = FindObjectOfType<EnemySpawner>() : instance; }
+    
+    public int TotalEnemyCount = 100;
+        //= GameManager.Instance.totalEnemyCount;
 
     private const int MAX_ENEMY_COUNT = 300;
     public static int enemyCount = 0;
 
-    //[SerializeField] private GameObject player;
+    public int enemySpawnRateAmount = 4;
 
-    //public GameObject Player { get; private set; }
     IAbstractEnemyFactory factory;
 
     [SerializeField] LayerMask _WhatIsGround;
 
-    //public int TotalEnemyCount { get => totalEnemyCount; set => totalEnemyCount = 100; }
-    //public GameObject Player { get => this.player; set => this.player = value; }/
-
     private void Awake()
     {
-        Instance = this;
-        //if (Instance != null && Instance != this)
-        //    Destroy(this.gameObject);
-        //else
-
-        //EasyEnemyFactory.Instance.PopulateEnemyPool();
-        //MediumEnemyFactory.Instance.PopulateEnemyPool();
-        //HardEnemyFactory.Instance.PopulateEnemyPool();
-
-        //TotalEnemyCount = totalEnemyCount;
-
-        //player = GameObject.FindGameObjectWithTag("Player");
-
-        //EasyEnemyFactory.Instance.TotalEnemyCount = TotalEnemyCount;
-        //MediumEnemyFactory.Instance.TotalEnemyCount = TotalEnemyCount;
-        //HardEnemyFactory.Instance.TotalEnemyCount = TotalEnemyCount;
+        enemyCount = 0;
+        StartCoroutine(ChangeFactoryCoroutine());
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(ChangeFactoryCoroutine());
-        // player = GameObject.FindGameObjectWithTag("Player");
-
-        // EasyEnemyFactory.Instance.TotalEnemyCount = TotalEnemyCount;
-        // MediumEnemyFactory.Instance.TotalEnemyCount = TotalEnemyCount;
-        // HardEnemyFactory.Instance.TotalEnemyCount = TotalEnemyCount;
-
         StartCoroutine(SpawnCoroutine());
-
-        //factory.PopulateEnemyPool();
-        // factory.CreateStrongEnemy();
     }
 
     IEnumerator ChangeFactoryCoroutine()
     {
-        while (true)
+        while (true) 
         {
             Debug.Log("Easy");
             factory = EasyEnemyFactory.Instance;
@@ -84,43 +58,6 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    // private void OnDrawGizmosSelected() {
-    //     Gizmos.DrawWireSphere(player.transform.position, player.GetComponent<CircleCollider2D>().radius);
-
-    //     // RandomPositionAroundPlayer();
-    // }
-
-    // private void OnDrawGizmosSelected() {
-    // }
-    // .normalized
-
-    //private void Update()
-    //{
-    //    RandomPositionAroundPlayer();
-    //}
-
-    // Declare a Func<Vector2> delegate
-    // System.Func<Vector2> myFunc = () =>
-    // {
-    //     // Generate a random position using UnityEngine.Random
-    //     Vector2 randomPosition = new Vector2(Random.Range(0f, 1f), Random.Range(0f, 1f));
-    //     return randomPosition;
-    // };
-
-    // Call the delegate to generate a random position
-
-    // System.Func<Vector2> RandomPositionAroundPlayer = () =>
-    // {
-    //     //  = (Vector2)GameManager.Instance.Player.transform.position + (Random.insideUnitCircle * _SpawnRadius)
-    //     Vector2 randomPos;
-    //     do
-    //     {
-    //         randomPos = (Vector2)GameManager.Instance.Player.transform.position + (Random.insideUnitCircle * _SpawnRadius);
-    //     } while (Physics2D.OverlapCircle(randomPos, 0.5f, _WhatIsGround));
-
-    //     return randomPos;
-    // };
-
     Vector2 RandomPositionAroundPlayer() => (Vector2)GameManager.Instance.Player.transform.position + (Random.insideUnitCircle * _SpawnRadius);
     // Vector3 RandomPositionAroundPlayer() => player.transform.position + (Random.insideUnitSphere * _SpawnRadius);
 
@@ -129,20 +66,19 @@ public class EnemySpawner : MonoBehaviour
         // Vector2 position = myFunc();
         while (enemyCount < MAX_ENEMY_COUNT)
         {
-            for (int i = 0; i < 4; i++) // Default i = 4;
+            for (int i = 0; i < enemySpawnRateAmount; i++) // Default i = 4;
             {
-                // (i % 4 == 4)
+                // (i % 4 == 4) (i > 0)
                 var enemy = (i > 0) ? factory.CreateWeakEnemy() : factory.CreateStrongEnemy();
-                // Vector3 randOffset = Random.insideUnitSphere * 5;
-                // player.transform.position + randOffset.normalized;
                 enemy.transform.position = RandomPositionAroundPlayer();
 
                 //if (enemy.CompareTag("NoSpawn"))
                 //    enemy.transform.position = RandomPositionAroundPlayer();
 
-                enemyCount += 4;
+                //enemyCount += 4;
+                enemyCount++;
             }
-            yield return new WaitForSeconds(2.5f); //Default 15f
+            yield return new WaitForSeconds(3f); //Default 15f
         }
     }
 }

@@ -9,7 +9,7 @@ using UnityEngine.UI;
 // instead of the Generic ICloneable Interface
 public interface IPrototype
 {
-    public GameObject Clone();
+    public GameObject Clone(GameObject objectToClone);
 }
 
 public class GameManager : MonoBehaviour
@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
 
     [HideInInspector] public bool pause = false;
     //[HideInInspector] public int zombiesKilled = 0;
-    public int totalEnemyCount = 100;
+    //public int totalEnemyCount = 100;
 
     [SerializeField] private Level gameLevel;
     [SerializeField] private Level mainMenuLevel;

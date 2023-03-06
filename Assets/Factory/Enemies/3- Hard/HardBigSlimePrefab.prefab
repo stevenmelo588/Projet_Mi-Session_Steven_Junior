@@ -75,7 +75,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8057115406483584126}
   - component: {fileID: 8057115406483584097}
-  - component: {fileID: 1255974566542878541}
+  - component: {fileID: 8633806099191162292}
   - component: {fileID: -2599729360953598085}
   - component: {fileID: 2691737257530642791}
   - component: {fileID: 1936448135266723856}
@@ -83,11 +83,11 @@ GameObject:
   - component: {fileID: 3770884836591509021}
   m_Layer: 6
   m_Name: HardBigSlimePrefab
-  m_TagString: Slime
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8057115406483584126
 Transform:
   m_ObjectHideFlags: 0
@@ -156,8 +156,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &1255974566542878541
-PolygonCollider2D:
+--- !u!58 &8633806099191162292
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -169,26 +169,9 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 2}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.375, y: 0.375}
-      - {x: -0.5625, y: 0.1875}
-      - {x: -0.5625, y: -0.375}
-      - {x: -0.4375, y: -0.5625}
-      - {x: 0.5, y: -0.5625}
-      - {x: 0.5625, y: -0.375}
-      - {x: 0.5625, y: 0.1875}
-      - {x: 0.3125, y: 0.375}
+  m_Offset: {x: 0, y: -0.1}
+  serializedVersion: 2
+  m_Radius: 0.4
 --- !u!50 &-2599729360953598085
 Rigidbody2D:
   serializedVersion: 4
@@ -246,7 +229,7 @@ MonoBehaviour:
   enemyHealthController: {fileID: 4268938606625766248}
   enemySpriteRenderer: {fileID: 8057115406483584097}
   enemyRigidbody2D: {fileID: -2599729360953598085}
-  enemyCollider: {fileID: 1255974566542878541}
+  enemyCollider: {fileID: 8633806099191162292}
   EnemyAnimator: {fileID: 2691737257530642791}
 --- !u!114 &4268938606625766248
 MonoBehaviour:

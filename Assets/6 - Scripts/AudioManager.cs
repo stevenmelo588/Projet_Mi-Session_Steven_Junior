@@ -39,7 +39,6 @@ public class AudioManager : MonoBehaviour
 
         backgroundMusicAudioSource.playOnAwake = false;
 
-
         // backgroundMusicAudioSource.clip = backgroundAudioClips[UnityEngine.Random.Range(0, backgroundAudioClips.Length)];
         // backgroundMusicAudioSource.playOnAwake = false;
         // // backgroundMusicAudioSource.volume = 0;
@@ -146,13 +145,13 @@ public class AudioManager : MonoBehaviour
             // backgroundMusicAudioSource.volume = Mathf.Lerp(MAX, MIN, lerpTime);
         }
         
-// && backgroundMusicAudioSource.volume <= 1
+            // && backgroundMusicAudioSource.volume <= 1
 
 
-        if(currentAudioTime == 30f)
-            Debug.Log("30 seconds");        
+        //if(currentAudioTime == 30f)
+            //Debug.Log("30 seconds");        
 
-        Debug.Log($"Real Time : {Math.Round(Time.timeAsDouble, 0)}  | Time : {currentAudioTime} | Clip lenght - 5 : {(currentAudioTime == (backgroundMusicAudioSource.clip.length - 5))}");
+        //Debug.Log($"Real Time : {Math.Round(Time.timeAsDouble, 0)}  | Time : {currentAudioTime} | Clip lenght - 5 : {(currentAudioTime == (backgroundMusicAudioSource.clip.length - 5))}");
     }
 
     IEnumerator CheckIfAudioStarted(float clipLengthSeconds){        
@@ -181,7 +180,7 @@ public class AudioManager : MonoBehaviour
         {
             starting = false;
             lerpTime = 0;
-            Debug.Log("Audio Started");
+            //Debug.Log("Audio Started");
         }
         // if (currAudioSource.volume == 0 && ending)
         // {
@@ -273,7 +272,7 @@ public class AudioManager : MonoBehaviour
         yield return new WaitForSeconds(6f);
         backgroundMusicAudioSource.Stop();
         ending = false;
-        Debug.Log($"Ending : {ending}");
+        //Debug.Log($"Ending : {ending}");
         backgroundMusicAudioSource.Play();
 
         // StartCoroutine(ChangeAudioClip());

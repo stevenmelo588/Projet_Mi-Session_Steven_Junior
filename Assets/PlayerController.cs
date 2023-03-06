@@ -106,7 +106,7 @@ public class PlayerController : MonoBehaviour
 
     public void SwordAttack()
     {
-        Debug.Log(Time.timeScale);
+        //Debug.Log(Time.timeScale);
         //swordColl.transform.position.x
         //float attackDirection = (spriteRenderer.flipX) ? -1 : 1;
             //swordColl.transform.localPosition = -swordColl.transform.position 

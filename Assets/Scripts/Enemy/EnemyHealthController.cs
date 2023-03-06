@@ -36,34 +36,21 @@ public class EnemyHealthController : MonoBehaviour
         currentEnemyHealth -= damageAmount;
         OnHitEvent?.Invoke(attackSender);
 
+        //CheckIfDead();
+
         if (currentEnemyHealth <= 0)
         {
             OnDeathEvent?.Invoke();
             IsDead = true;
-            //currentEnemyHealth -= damageAmount;
+            EnemySpawner.enemyCount--;
         }
-        //else
-        //{
-        //    // EnemyAnimator.Play(enemyScriptableOBJ.DEATH_STATE);
-        //    // EnemySpawner.enemyCount--;
-        //}
-
-        //Debug.Log(currentEnemyHealth);
     }
 
-    //// Start is called before the first frame update
-    //void Start()
-    //{
-
+    //void CheckIfDead() {
+    //    if (currentEnemyHealth <= 0)
+    //    {
+    //        OnDeathEvent?.Invoke();
+    //        IsDead = true;
+    //    }
     //}
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (currentEnemyHealth <= 0)
-        {
-            OnDeathEvent?.Invoke();
-            IsDead = true;
-        }
-    }
 }

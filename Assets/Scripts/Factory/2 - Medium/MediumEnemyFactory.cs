@@ -4,7 +4,7 @@ using UnityEngine;
 // using UnityEditor;
 using Unity.Collections;
 
-public class MediumEnemyFactory : MonoBehaviour, IAbstractEnemyFactory
+public class MediumEnemyFactory : MonoBehaviour, IAbstractEnemyFactory, IPrototype
 {
     //private static MediumEnemyFactory instance;
     public static MediumEnemyFactory Instance { get; private set; }
@@ -13,13 +13,8 @@ public class MediumEnemyFactory : MonoBehaviour, IAbstractEnemyFactory
 
     [SerializeField] GameObject[] mediumEnemyOBJ;
 
-    //private int TotalEnemyCount => GameManager.Intance.totalEnemyCount;
-
-    // [SerializeField] private GameObject weakEnemy; 
-    // [SerializeField] private GameObject strongEnemy;
-
-    // [SerializeField] int WeakEnemyAmount;
-    // [SerializeField] int StrongEnemyAmount;
+    private int TotalEnemyCount => EnemySpawner.Instance.TotalEnemyCount;
+    private int EnemySpawnRate => EnemySpawner.Instance.enemySpawnRateAmount;
 
     [SerializeField] List<GameObject> pooledWeakEnemies;
     [SerializeField] List<GameObject> pooledStrongEnemies;
@@ -27,8 +22,11 @@ public class MediumEnemyFactory : MonoBehaviour, IAbstractEnemyFactory
     // Start is called before the first frame update
     void Awake()
     {
+        Instance = this;
+
+        PopulateEnemyPool();
+
         //if(instance != this)
-            Instance = this;
 
         // if(Instance != null && Instance != this)
         //     Destroy(this.gameObject);
@@ -36,33 +34,29 @@ public class MediumEnemyFactory : MonoBehaviour, IAbstractEnemyFactory
         //     Instance = this;
 
         //TotalEnemyCount = GameManager.instance.totalEnemyCount;
-        PopulateEnemyPool();
-    }
-
-    private void Start()
-    {
     }
 
     public void PopulateEnemyPool()
     {
         pooledWeakEnemies = new List<GameObject>();
         pooledStrongEnemies = new List<GameObject>();
-        GameObject tmp;
+        //GameObject tmp;
 
-        for (int i = 0; i < GameManager.Instance.totalEnemyCount / 4; i++)
+        for (int i = 0; i < TotalEnemyCount / EnemySpawnRate; i++)
         {
-            for (int j = 0; j < 1; j++) // instanciates 1 Strong Enemy for 3 Weak Enemies
+            for (int j = 0; j < (EnemySpawnRate - (EnemySpawnRate - 1)); j++) // instanciates 1 Strong Enemy for 3 Weak Enemies
             {
-                tmp = Instantiate(mediumEnemyOBJ[1], this.transform);
-                tmp.SetActive(false);
-                pooledStrongEnemies.Add(tmp);
+                //tmp = Instantiate(mediumEnemyOBJ[1], this.transform);
+                //tmp.SetActive(false);
 
-                for (int k = 0; k < 3; k++)
+                for (int k = 0; k < (EnemySpawnRate - 1); k++)
                 {
-                    tmp = Instantiate(mediumEnemyOBJ[0], this.transform);
-                    tmp.SetActive(false);
-                    pooledWeakEnemies.Add(tmp);
-                }                
+                    //tmp = Instantiate(mediumEnemyOBJ[0], this.transform);
+                    //tmp.SetActive(false);
+                    pooledWeakEnemies.Add(Clone(mediumEnemyOBJ[0]));
+                }   
+                
+                pooledStrongEnemies.Add(Clone(mediumEnemyOBJ[1]));
             }
         }
     }
@@ -111,31 +105,33 @@ public class MediumEnemyFactory : MonoBehaviour, IAbstractEnemyFactory
 
     public GameObject CreateWeakEnemy()
     {
-        WeakEnemyIndex %= pooledWeakEnemies.Count;
-        GameObject weakEnemy = pooledWeakEnemies[WeakEnemyIndex++];
-        weakEnemy.SetActive(true);
+        pooledWeakEnemies[WeakEnemyIndex++ % pooledWeakEnemies.Count].SetActive(true);
 
-        // foreach (GameObject item in FindObjectsOfType(weakEnemy.GetType()))
-        // {
-        //     if (item.name.Equals(weakEnemy.name + "(Clone)"))
-        //         if (item.activeInHierarchy)
-        //             Debug.Log(item.name);
-        // }
-        //;
+        return pooledWeakEnemies[WeakEnemyIndex];
 
-        return weakEnemy;
+        //WeakEnemyIndex %= pooledWeakEnemies.Count;
+        //GameObject weakEnemy = pooledWeakEnemies[WeakEnemyIndex++];
+        //weakEnemy.SetActive(true);
+        
+        //return weakEnemy;
     }
 
     public GameObject CreateStrongEnemy()
     {
-        //Destroy(strongEnemyPrefab);
-        StrongEnemyIndex %= pooledStrongEnemies.Count;
-        GameObject strongEnemy = pooledStrongEnemies[StrongEnemyIndex++];
-        strongEnemy.SetActive(true);
-        //pooledStrongEnemies[EnemyIndex++].SetActive(true);
-        // Debug.Log("[ " + strongEnemy.transform.position + " ]");
-        // print("Medium");
-        return strongEnemy;
+        pooledStrongEnemies[StrongEnemyIndex++ % pooledStrongEnemies.Count].SetActive(true);
+
+        return pooledStrongEnemies[StrongEnemyIndex];
+
+        //StrongEnemyIndex %= pooledStrongEnemies.Count;
+        //GameObject strongEnemy = pooledStrongEnemies[StrongEnemyIndex++];
+        //strongEnemy.SetActive(true);
+
+        //return strongEnemy;
     }
 
+    public GameObject Clone(GameObject objectToClone)
+    {
+        objectToClone.SetActive(false);
+        return Instantiate(objectToClone, this.transform);
+    }
 }

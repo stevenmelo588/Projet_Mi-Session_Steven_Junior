@@ -35,26 +35,25 @@ public class SwordAttack : MonoBehaviour
         attackOffest = transform.position;
     }
 
-    public void Attack(float attackOffsetVector)
-    {
-        swordColl.enabled = true;
+    //public void Attack(float attackOffsetVector)
+    //{
+    //    swordColl.enabled = true;
 
-        transform.localPosition.Set(attackOffsetVector, 0, 0);
+    //    transform.localPosition.Set(attackOffsetVector, 0, 0);
 
-        foreach (Collider2D collider in Physics2D.OverlapBoxAll(transform.position, swordColl.size, 0))
-        {
-            EnemyHealthController enemyHealth;
-            if (enemyHealth = collider.GetComponent<EnemyHealthController>())
-            {
-                enemyHealth.EnemyHit(swordDamage, transform.gameObject);
-            }
-        }
-    }
+    //    foreach (Collider2D collider in Physics2D.OverlapBoxAll(transform.position, swordColl.size, 0))
+    //    {
+    //        EnemyHealthController enemyHealth;
+    //        if (enemyHealth = collider.GetComponent<EnemyHealthController>())
+    //        {
+    //            enemyHealth.EnemyHit(swordDamage, transform.gameObject);
+    //        }
+    //    }
+    //}
 
     public void AttackRight()
     {
         swordColl.enabled = true;
-        //gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
 
         transform.localPosition = attackOffest;
         foreach (Collider2D collider in Physics2D.OverlapBoxAll(transform.position, swordColl.size, 0))
@@ -81,8 +80,7 @@ public class SwordAttack : MonoBehaviour
         }
     }
 
-    public void StopAttack()
-    { swordColl.enabled = false; }
+    public void StopAttack() { swordColl.enabled = false; }
 
     //private void OnTriggerEnter2D(Collider2D other)
     //{

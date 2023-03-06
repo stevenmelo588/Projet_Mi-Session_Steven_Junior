@@ -20520,6 +20520,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afd6d68ee5aaf394dbbf7a9d99849c8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TotalEnemyCount: 300
+  enemySpawnRateAmount: 4
   _WhatIsGround:
     serializedVersion: 2
     m_Bits: 0
@@ -70858,7 +70860,6 @@ MonoBehaviour:
   - {fileID: 2145618491}
   - {fileID: 1343189573}
   pause: 0
-  totalEnemyCount: 100
   gameLevel: {fileID: 11400000, guid: 51655328f366fb44a9fa28383db90533, type: 2}
   mainMenuLevel: {fileID: 11400000, guid: 0feba825d1bb8274e9442de3c9de9703, type: 2}
   mainMenuLoadingLevel: {fileID: 11400000, guid: f75a84b049d632f409d6c6afe0cf5861, type: 2}
