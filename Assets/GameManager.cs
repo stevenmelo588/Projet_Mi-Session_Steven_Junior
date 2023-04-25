@@ -20,29 +20,17 @@ public class GameManager : MonoBehaviour
     public GameObject Player { get => player; set => player = value; }
     public Canvas PlayerPanel { get => playerPanel; set => playerPanel = value; }
 
-    //private LocomotionCharacterCrontroller playerInput;
-    //private LoseHealth playerHealth;
     private VolumeSet volSet;
-    //private Shoot shootManager;
 
-    //[Header("--- Ammo TextMeshPro ---")]
-    //[SerializeField] private TMP_Text ammoLeftTxt;
-    //[Header("--- Zombies TextMeshPro ---")]
-    //[SerializeField] private TMP_Text txtZombiesKilled;
-    //[Header("--- Location TextMeshPro ---")]
-    //[SerializeField] public TMP_Text txtLocation;
+    
     [Header("--- UI/Player/Options Menu ---")]
     [SerializeField] private Canvas playerPanel;
     [SerializeField] private GameObject[] UICanvas;
     [SerializeField] private GameObject[] GameOverPanel;
     [SerializeField] private Selectable[] SelectedOnStart;
 
-    //private const string txt = "0";
-    //private bool isGameWinner = false;
-
     [HideInInspector] public bool pause = false;
-    //[HideInInspector] public int zombiesKilled = 0;
-    //public int totalEnemyCount = 100;
+    public int totalEnemyCount = 100;
 
     [SerializeField] private Level gameLevel;
     [SerializeField] private Level mainMenuLevel;
@@ -60,24 +48,12 @@ public class GameManager : MonoBehaviour
 
         Player = GameObject.FindGameObjectWithTag("Player");
 
-        //if (instance == null)
-        //{
-        //    instance = this;
-        //}
-        //else if (instance != this)
-        //{
-        //    Destroy(gameObject);
-        //}
-        //RefreshAmmo();
-
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
     IEnumerator Start()
     {
-        //playerHealth = FindObjectOfType<LoseHealth>();
-        //shootManager = GetComponent<Shoot>();
         yield return new WaitForFixedUpdate();
         PlayerCanvasActive();
         //RefreshZombiesKilled();
@@ -96,11 +72,6 @@ public class GameManager : MonoBehaviour
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
     }
-
-    //public void RefreshZombiesKilled()
-    //{
-    //    txtZombiesKilled.text = txt + zombiesKilled.ToString();
-    //}
 
     public void SelectedMenuPanel(int panelIndex)
     {

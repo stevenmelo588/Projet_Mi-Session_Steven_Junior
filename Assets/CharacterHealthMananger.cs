@@ -168,4 +168,5 @@ public class CharacterHealthMananger : MonoBehaviour, IDamageble, ICloneable
     {
         return Instantiate(life);
     }
+
 }
