@@ -48,20 +48,20 @@ public class EnemySpawner : MonoBehaviour
         {
             Debug.Log("Easy");
             factory = EasyEnemyFactory.Instance;
-            yield return new WaitForSeconds(60); // Waits 1 minute before changing factory
+            yield return new WaitForSeconds(30); // Waits 1 minute before changing factory
             Debug.Log("Medium");
             factory = MediumEnemyFactory.Instance;
-            yield return new WaitForSeconds(60); // Waits 1 minute before changing factory
+            yield return new WaitForSeconds(30); // Waits 1 minute before changing factory
             Debug.Log("Hard");
             factory = HardEnemyFactory.Instance;
-            yield return new WaitForSeconds(60); // Waits 1 minute before changing factory
+            yield return new WaitForSeconds(30); // Waits 1 minute before changing factory
         }
     }
 
     Vector2 RandomPositionAroundPlayer() => (Vector2)GameManager.Instance.Player.transform.position + (Random.insideUnitCircle * _SpawnRadius);
-    // Vector3 RandomPositionAroundPlayer() => player.transform.position + (Random.insideUnitSphere * _SpawnRadius);
+   
 
-    IEnumerator SpawnCoroutine()
+    IEnumerator SpawnCoroutine()                                    
     {
         // Vector2 position = myFunc();
         while (enemyCount < MAX_ENEMY_COUNT)
@@ -72,10 +72,6 @@ public class EnemySpawner : MonoBehaviour
                 var enemy = (i > 0) ? factory.CreateWeakEnemy() : factory.CreateStrongEnemy();
                 enemy.transform.position = RandomPositionAroundPlayer();
 
-                //if (enemy.CompareTag("NoSpawn"))
-                //    enemy.transform.position = RandomPositionAroundPlayer();
-
-                //enemyCount += 4;
                 enemyCount++;
             }
             yield return new WaitForSeconds(3f); //Default 15f

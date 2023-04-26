@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Playground level
+  m_EditorClassIdentifier: 
+  m_GroupName: Playground level
+  m_Data:
+    m_SerializedData: []
+  m_GUID: ca18ab627c15c92469d9a9da13889a5b
+  m_SerializeEntries: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: a931f753e1356c34092fc0687cc21638, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 01632d82ff45b884c94b7eb9b0e4ca3d, type: 2}
+    - {fileID: 11400000, guid: 68c5ffdffd684d84db87ae76dca9c633, type: 2}

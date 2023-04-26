@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 332569305}
   - component: {fileID: 332569307}
+  - component: {fileID: 332569308}
   m_Layer: 0
   m_Name: --- Loading ---
   m_TagString: Untagged
@@ -174,6 +175,22 @@ MonoBehaviour:
   SelectedOnStart:
   - {fileID: 3336555744673661347}
   - {fileID: 3336555745312122403}
+--- !u!114 &332569308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 332569304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e98d01264bca8742bfe07e3ab8c9cce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lvlButton:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &512371299
 GameObject:
   m_ObjectHideFlags: 0
@@ -612,6 +629,10 @@ PrefabInstance:
     - target: {fileID: 3336555746250636968, guid: cb669ccf7d92b704e94a3a1acfc21e13, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3388916615630994626, guid: cb669ccf7d92b704e94a3a1acfc21e13, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -320
       objectReference: {fileID: 0}
     - target: {fileID: 3927252996872666738, guid: cb669ccf7d92b704e94a3a1acfc21e13, type: 3}
       propertyPath: m_AnchorMax.x
