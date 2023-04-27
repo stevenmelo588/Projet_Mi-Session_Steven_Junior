@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
 
     Rigidbody2D rb;
 
-    
+
     Animator anim;
 
     bool canMove = true;
@@ -29,9 +29,9 @@ public class PlayerController : MonoBehaviour
     public const string PLAYER_IDLE = "PLAYER_IDLE";
     public const string PLAYER_WALK = "PLAYER_WALK";
     public const string PLAYER_ATTACK = "PLAYER_ATTACK";
-     public const string PLAYER_DEATH = "PLAYER_DEATH";
+    public const string PLAYER_DEATH = "PLAYER_DEATH";
 
-   
+
 
     // Start is called before the first frame update
     void Start()
@@ -43,7 +43,8 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(canMove) {
+        if (canMove)
+        {
             if (movementInput != Vector2.zero)
             {
                 // if movement input is not 0 try to move
@@ -62,23 +63,23 @@ public class PlayerController : MonoBehaviour
             }
             else
                 //anim.Play(PLAYER_IDLE);
-            anim.SetBool("isMoving", false);
+                anim.SetBool("isMoving", false);
 
             //Set direction of sprite 
             if (movementInput.x < 0)
-            { 
-                spriteRenderer.flipX = true; 
+            {
+                spriteRenderer.flipX = true;
             }
             else if (movementInput.x > 0)
             {
-                spriteRenderer.flipX = false; 
+                spriteRenderer.flipX = false;
             }
         }
     }
 
     bool TryMove(Vector2 direction)
     {
-        if(direction != Vector2.zero)
+        if (direction != Vector2.zero)
         {
             int count = rb.Cast(direction,//X and Y values between -1 and 1 
                 movementFilter,// Determine where a collisoin  
@@ -122,7 +123,7 @@ public class PlayerController : MonoBehaviour
     {
         anim.SetTrigger("SwordAttack");
     }
-    
+
     void LockMovement()
     {
         canMove = false;
