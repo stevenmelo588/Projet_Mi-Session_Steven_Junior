@@ -12,6 +12,8 @@ using Newtonsoft.Json.Linq;
 // using SurviveTheRust.Assets.Scripts.PromoCodeLogic;
 // using SurviveTheRust.Assets.Scripts.ScriptableObjects.AlertMessages;
 using TMPro;
+using UnityEditor.Build.Pipeline.Tasks;
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -248,7 +250,7 @@ public class APIRequestManager : MonoBehaviour
         //yield return null;
     }
 
-    public static IEnumerator CheckIfPromoCodeIsValid(string promoCode, AlertMessagesSO[] alertMessages)
+    public static IEnumerator CheckIfPromoCodeIsValid(string promoCode/* , AlertMessagesSO[] alertMessages */)
     {
         //var url = PromoCodesURL + $"/?where={PromoCode:\"{promoCode.text}\"}";
 
@@ -270,21 +272,42 @@ public class APIRequestManager : MonoBehaviour
 
             yield return request.SendWebRequest();
 
-            Debug.Log(request.result);
+            // Debug.Log(request.result);
 
             if (request.result != UnityWebRequest.Result.Success)
             {
-                Debug.LogError(request.error);
+                // Debug.LogError(request.error);
                 yield break;
             }
 
+            var requestResultToken = JObject.Parse(request.downloadHandler.text);
+
+            if (!requestResultToken["results"].HasValues)
+            {
+                GameManager.Instance.UiManager.SetAlertMessageText(1);
+                GameManager.Instance.UiManager.ActivateAlertMessagesPanel();
+            }
+
+            // GameManager.Instance.UiManager.activeAlertMessagePopup?.Invoke(alertMessages[1]);
+            // GameManager.Instance.UiManager.SendAlert(alertMessages[1]);
+
+            // if (requestResultToken.Value<string>("PromoCode").ToString() == promoCode)
+            //     Debug.Log("promocode found"); //Replace with alert message
+
             if (JObject.Parse(request.downloadHandler.text).Value<bool>("IsUsed") == true)
-                GameManager.Instance.UiManager.SendAlert(alertMessages[3]);
+            {
+                GameManager.Instance.UiManager.SetAlertMessageText(3);
+                GameManager.Instance.UiManager.ActivateAlertMessagesPanel();
+            }
+            // GameManager.Instance.UiManager.activeAlertMessagePopup?.Invoke(alertMessages[3]);
+            // GameManager.Instance.UiManager.SendAlert(alertMessages[3]);
 
-            if (string.IsNullOrWhiteSpace(JObject.Parse(request.downloadHandler.text)["results"][0].ToString()))
-                GameManager.Instance.UiManager.SendAlert(alertMessages[1]);
+            GameManager.Instance.UiManager.SetAlertMessageText(8);
+            GameManager.Instance.UiManager.ActivateAlertMessagesPanel();
 
+            // Debug.Log(JObject.Parse(request.downloadHandler.text)["results"] != null);
             Debug.Log(request.downloadHandler.text);
+            // Debug.Log(JObject.Parse(request.downloadHandler.text)["results"].HasValues);
 
             //var obj = JObject.Parse(request.downloadHandler.text);
             //obj.GetValue("PromoCode");
@@ -303,7 +326,7 @@ public class APIRequestManager : MonoBehaviour
     }
 
     // , AlertMessagesSO[] alertMessages
-    public static IEnumerator CreateUserAccount(string username, string email, string password, AlertMessagesSO[] alertMessages)
+    public static IEnumerator CreateUserAccount(string username, string email, string password/* , AlertMessagesSO[] alertMessages */)
     {
         //var t = new { username, password, email };
         using (var request = new WebAPIRequestBuilder()
@@ -316,23 +339,35 @@ public class APIRequestManager : MonoBehaviour
         {
             yield return request.SendWebRequest();
 
-
             if (request.result != UnityWebRequest.Result.Success)
             {
-                Debug.LogError(request.downloadHandler.text);
+                // Debug.LogError(request.downloadHandler.text);
 
                 if (JObject.Parse(request.downloadHandler.text).Value<string>("code").ToString() == "202")
-                    GameManager.Instance.UiManager.SendAlert(alertMessages[4]);
+                    GameManager.Instance.UiManager.SetAlertMessageText(4);
+                // {
+                // GameManager.Instance.UiManager.ActivateAlertMessagesPanel();
+                // }
+                // GameManager.Instance.UiManager.activeAlertMessagePopup?.Invoke(alertMessages[4]);
+                // GameManager.Instance.UiManager.SendAlert(alertMessages[4]);
                 if (JObject.Parse(request.downloadHandler.text).Value<string>("code").ToString() == "203")
-                    GameManager.Instance.UiManager.SendAlert(alertMessages[5]);
+                    GameManager.Instance.UiManager.SetAlertMessageText(5);
 
-                Debug.LogError(request.error + " | " + request.GetRequestHeader(ContentType));
+                GameManager.Instance.UiManager.ActivateAlertMessagesPanel();
+
+                // GameManager.Instance.UiManager.activeAlertMessagePopup?.Invoke(alertMessages[5]);
+                // GameManager.Instance.UiManager.SendAlert(alertMessages[5]);
+
+                // Debug.LogError(request.error + " | " + request.GetRequestHeader(ContentType));
                 yield break;
             }
 
             var loginAccountData = JObject.Parse(request.downloadHandler.text);
 
-            GameManager.Instance.UiManager.SendAlert(alertMessages[0]);
+            GameManager.Instance.UiManager.SetAlertMessageText(0);
+            GameManager.Instance.UiManager.ActivateAlertMessagesPanel();
+            // GameManager.Instance.UiManager.activeAlertMessagePopup?.Invoke(alertMessages[0]);
+            // GameManager.Instance.UiManager.SendAlert(alertMessages[0]);
 
             //using (var emailVerifRequest = new WebAPIRequestBuilder()
             //    .SetURL("/verificationEmailRequest")
@@ -345,13 +380,13 @@ public class APIRequestManager : MonoBehaviour
 
             // yield return request.SetURL("/verificationEmailRequest").SendWebRequest();
 
-            Debug.Log(request.downloadHandler.text);
+            // Debug.Log(request.downloadHandler.text);
         }
 
         //yield return null;
     }
 
-    public static IEnumerator UserAccountLogin(string usernameData, string passwordData, AlertMessagesSO[] alertMessages)
+    public static IEnumerator UserAccountLogin(string usernameData, string passwordData/* , AlertMessagesSO[] alertMessages */)
     {
         // /username=<" + $"{username}" + ">"
         using (var request = new WebAPIRequestBuilder()
@@ -366,15 +401,19 @@ public class APIRequestManager : MonoBehaviour
             if (request.result != UnityWebRequest.Result.Success)
             {
                 // UIManager.
-                Debug.LogError(request.downloadHandler.text);
+                // Debug.LogError(request.downloadHandler.text);
 
                 if (JObject.Parse(request.downloadHandler.text).Value<string>("code").ToString() == "101")
-                    GameManager.Instance.UiManager.SendAlert(alertMessages[2]);
+                    GameManager.Instance.UiManager.SetAlertMessageText(2);
+                // GameManager.Instance.UiManager.activeAlertMessagePopup?.Invoke(alertMessages[2]);
+                // GameManager.Instance.UiManager.SendAlert(alertMessages[2]);
+
+                GameManager.Instance.UiManager.ActivateAlertMessagesPanel();
 
                 yield break;
             }
 
-            Debug.Log(request.downloadHandler.text);
+            // Debug.Log(request.downloadHandler.text);
 
             // using(var loginRequest = new WebAPIRequestBuilder().SetMethod(WebAPIRequestBuilder.GET).Revocable().Build())
             // {
@@ -392,16 +431,20 @@ public class APIRequestManager : MonoBehaviour
             var loginAccountData = JObject.Parse(request.downloadHandler.text);
 
             if (loginAccountData.Value<bool>("emailVerified") == false)
-                GameManager.Instance.UiManager.SendAlert(alertMessages[6]);
+            {
+                GameManager.Instance.UiManager.SetAlertMessageText(6);
+                GameManager.Instance.UiManager.ActivateAlertMessagesPanel();
+            }
+            // GameManager.Instance.UiManager.activeAlertMessagePopup?.Invoke(alertMessages[6]);
+            // GameManager.Instance.UiManager.SendAlert(alertMessages[6]);
 
-            Debug.Log(loginAccountData.Value<string>("username").ToString() + " | " + loginAccountData.Value<string>("sessionToken").ToString());
+            // Debug.Log(loginAccountData.Value<string>("username").ToString() + " | " + loginAccountData.Value<string>("sessionToken").ToString());
             // Debug.Log(loginAccountData["sessionToken"][0].ToString());
 
             // yield return request.SetMethod(WebAPIRequestBuilder.GET).SendWebRequest();
 
-
             GameManager.playerUserName = loginAccountData.Value<string>("username").ToString();
-            GameManager.playerUserName = loginAccountData.Value<string>("sessionToken").ToString();
+            GameManager.playerSessionToken = loginAccountData.Value<string>("sessionToken").ToString();
         }
     }
 
@@ -411,12 +454,51 @@ public class APIRequestManager : MonoBehaviour
     /// <returns></returns>
     public static IEnumerator UploadSaveData(string saveFile)
     {
+        using (var request = new WebAPIRequestBuilder()
+        .SetURL("classes/PlayerSaveData")
+        .SetMethod(WebAPIRequestBuilder.POST)
+        .SetJSON(new { __type = "File", name = saveFile })
+        .Build())
+        {
+            yield return request.SendWebRequest();
+
+            if (request.result != UnityWebRequest.Result.Success)
+            {
+                Debug.LogError(request.downloadHandler.text);
+                yield break;
+            }
+
+            var saveFileData = JObject.Parse(request.downloadHandler.text);
+
+            Debug.Log(saveFileData.GetValue("SaveFile").ToString());
+        }
+
         // Media Type for the Binary Save File:
         // application/octet-stream
 
-        yield return null;
+        // yield return null;
     }
 
+    public static IEnumerator DeleteCloudSaveData(string saveFile)
+    {
+        using (var request = new WebAPIRequestBuilder()
+        .SetURL("classes/PlayerSaveData/?where=\"SaveFile\":" + $"\"{saveFile}\"" + "}")
+        .SetMethod(WebAPIRequestBuilder.GET)
+        .Build())
+        {
+            yield return request.SendWebRequest();
 
+            var saveFileParseObject = JObject.Parse(request.downloadHandler.text);
+            
+            Debug.Log(saveFileParseObject.GetValue("objectId").ToString());
 
+            // using (var saveDeletionRequest = new WebAPIRequestBuilder()
+            // .SetURL($"classes/PlayerSaveData/{}")
+            // .SetMethod(WebAPIRequestBuilder.DELETE)
+            // .Build())
+            // {
+            //     yield return saveDeletionRequest.SendWebRequest();
+            // }
+        }
+    }
 }

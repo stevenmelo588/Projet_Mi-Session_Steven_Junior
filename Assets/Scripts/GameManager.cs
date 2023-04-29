@@ -91,12 +91,10 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int promoCodeAmount;
 
-    public List<EntityPromoCodes> PromoCodes = new();
+    public List<EntityPromoCodes> PromoCodes = new(100);
 
     public static EntityJsonFormater PlayerEntity = new();
     public static EntityJsonFormater Enemy = new();
-
-
 
     private void Awake()
     {
@@ -111,6 +109,19 @@ public class GameManager : MonoBehaviour
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        // PopulatePromoCodes();
+    }
+
+    public void PopulatePromoCodes()
+    {
+        for (int i = 0; i < promoCodeAmount; i++)
+        {
+            PromoCodes.Add(new());
+        }
+
+        foreach (var promoCode in PromoCodes)
+            StartCoroutine(APIRequestManager.CreatePromoCodes(promoCode));
     }
 
     IEnumerator Start()
@@ -118,6 +129,8 @@ public class GameManager : MonoBehaviour
         SaveManager.FindLocalSaveFiles();
         
         yield return new WaitForFixedUpdate();
+        // PopulatePromoCodes();
+
         PlayerCanvasActive();
 
         StartCoroutine(APIRequestManager.GetDeathTrackerRequest(Enemy, UIManager.EnemyDeathText));

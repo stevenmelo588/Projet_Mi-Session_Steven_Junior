@@ -80,10 +80,16 @@ public class SaveManager : MonoBehaviour
 
     public static void FindLocalSaveFiles()
     {
-        foreach (string file in Directory.GetFiles(FILE_PATH))
+        if (Directory.Exists(FILE_PATH))
+            foreach (string file in Directory.GetFiles(FILE_PATH))
+            {
+                Debug.Log(file);
+                SaveFiles.Add(file);
+            }
+        else
         {
-            Debug.Log(file);
-            SaveFiles.Add(file);
+            Directory.CreateDirectory(FILE_PATH);
+            Debug.Log(Directory.Exists(FILE_PATH));
         }
     }
 

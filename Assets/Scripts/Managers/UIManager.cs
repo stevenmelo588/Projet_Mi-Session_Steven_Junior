@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Networking;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -38,8 +39,12 @@ public class EntityDataFromJsonFormater
     public int EntityDeathCount { get; set; }
 }
 
+[DisallowMultipleComponent]
 public class UIManager : MonoBehaviour
 {
+    public delegate void SendAlertMessagePopUp();
+    public SendAlertMessagePopUp sendAlertMessage;
+
     [SerializeField] private SceneLoader sceneLoader;
 
     [System.Serializable]
@@ -72,12 +77,19 @@ public class UIManager : MonoBehaviour
 
     //[Header("--- User Account Input Fields ---")]
     [Header("--- Create/Login Menu ---")]
-
-
     [Space(5)]
     [SerializeField] private UserAccountData UserAccountInputFieldData;
     [SerializeField] private Button CreateAccountBTN;
     [SerializeField] private Button AccountLoginBTN;
+
+    private string[] validEmails =
+    {
+        "gmail.com",
+        "yahoo.com",
+        "outlook.com",
+        "hotmail.com",
+        "aol.com"
+    };
 
     //[SerializeField] private LoginAccountData loginAccountData; 
 
@@ -91,15 +103,22 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject[] SaveUICanvas;
     [SerializeField] private Selectable[] SaveSelectedOnStart;
     [SerializeField] private Button[] SaveFileConfirmButtons;
+    [SerializeField] private Button SaveFileConfirmButton;
     [SerializeField] private InputField[] SaveFileNames;
 
     [Header("--- PopUp Alert UI  ---")]
+    [SerializeField] private GameObject AlertMessagePanel;
     [SerializeField] private AlertMessagesSO[] alertMessages;
+    public UnityEvent<AlertMessagesSO> activeAlertMessagePopup;
     [SerializeField] private TMP_Text AlertTypeText;
     [SerializeField] private TMP_Text MessageNameText;
     [SerializeField] private Text MessageText;
 
     [Space(10)]
+
+    [Header("-[ PromoCode UI Objects ]-")]
+    [SerializeField] Button PromoCodeRedeemBTN;
+    [SerializeField] InputField PromoCodeInputField;
 
     //[SerializeField] private InputField NewAccountUsername;
     //[SerializeField] private InputField NewAccountEmail;
@@ -187,47 +206,61 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        for (int i = 0; i < SaveFileNames.Length; i++)
-        {
-            if (SaveFileNames[i].text.Length > 0)
-            {
-                SaveFileConfirmButtons[i].interactable = true;
-                //SaveFileConfirmButtons[i].enabled = true;
-            }
-            else
-            {
-                SaveFileConfirmButtons[i].interactable = false;
-                //SaveFileConfirmButtons[i].enabled = false;
-            }
-        }
+        // for(int i = 0; i < SaveFileNames.Length; i++)
+        SaveFileConfirmButton.interactable = (SaveFileNames[0].text.Length > 0) ? true: false; 
+
+        // for (int i = 0; i < SaveFileNames.Length; i++)
+        // {
+        //     if (SaveFileNames[i].text.Length > 0)
+        //     {
+        //         SaveFileConfirmButtons[i].interactable = true;
+        //         //SaveFileConfirmButtons[i].enabled = true;
+        //     }
+        //     else
+        //     {
+        //         SaveFileConfirmButtons[i].interactable = false;
+        //         //SaveFileConfirmButtons[i].enabled = false;
+        //     }
+        // }
+
+        // for (int i = 0; i < UserAccountInputFieldData.NewAccountCredentials.Length; i++)
+        // {
+        //     if (UserAccountInputFieldData.NewAccountCredentials[i].text.Length > 0)
+        //     {
+        //         CreateAccountBTN.interactable = true;
+        //         //SaveFileConfirmButtons[i].enabled = true;
+        //     }
+        //     else
+        //     {
+        //         CreateAccountBTN.interactable = false;
+        //         //SaveFileConfirmButtons[i].enabled = false;
+        //     }
+        // }
 
         for (int i = 0; i < UserAccountInputFieldData.NewAccountCredentials.Length; i++)
-        {
-            if (UserAccountInputFieldData.NewAccountCredentials[i].text.Length > 0)
-            {
-                CreateAccountBTN.interactable = true;
-                //SaveFileConfirmButtons[i].enabled = true;
-            }
-            else
-            {
-                CreateAccountBTN.interactable = false;
-                //SaveFileConfirmButtons[i].enabled = false;
-            }
-        }
+            CreateAccountBTN.interactable = (UserAccountInputFieldData.NewAccountCredentials[i].text.Length > 0) ? true : false;
 
         for (int i = 0; i < UserAccountInputFieldData.AccountLoginCredentials.Length; i++)
-        {
-            if (UserAccountInputFieldData.AccountLoginCredentials[i].text.Length > 0)
-            {
-                AccountLoginBTN.interactable = true;
-                //SaveFileConfirmButtons[i].enabled = true;
-            }
-            else
-            {
-                AccountLoginBTN.interactable = false;
-                //SaveFileConfirmButtons[i].enabled = false;
-            }
-        }
+            AccountLoginBTN.interactable = (UserAccountInputFieldData.AccountLoginCredentials[i].text.Length > 0) ? true : false;
+
+        // {
+
+        // if (UserAccountInputFieldData.AccountLoginCredentials[i].text.Length > 0)
+        // {
+        //     AccountLoginBTN.interactable = true;
+        //     //SaveFileConfirmButtons[i].enabled = true;
+        // }
+        // else
+        // {
+        //     AccountLoginBTN.interactable = false;
+        //     //SaveFileConfirmButtons[i].enabled = false;
+        // }
+        // }
+
+        // for (int i = 0; i < PromoCodeInputField.Length; i++)
+        // {
+        PromoCodeRedeemBTN.interactable = (PromoCodeInputField.text.Length > 0) ? true : false;
+        // }
     }
 
     private static List<JsonTextLocalizer> JsonTextLocalizers => FindObjectsOfType<JsonTextLocalizer>().ToList();
@@ -393,6 +426,59 @@ public class UIManager : MonoBehaviour
 
     //     return false;
     // }
+    // public void SendAlert(AlertMessagesSO alertMessage)
+    // {
+    //     /* this. */
+    //     AlertTypeText.text = alertMessage.AlertType;
+    //     /* this. */
+    //     MessageNameText.text = alertMessage.AlertMessageName;
+    //     /* this. */
+    //     MessageText.text = alertMessage.AlertMessageText;
+    // }
+
+    public void SetAlertMessageText(int errorCode)
+    {
+        // switch (errorCode)
+        // {
+        //     case 0:
+        //         SendAlert(alertMessages[]);
+        //         break;
+        //     case 1:
+        //         break;
+        //     case 2:
+        //         break;
+        //     case 3:
+        //         break;
+        //     case 4:
+        //         break;
+        //     case 5:
+        //         break;
+        //     case 6:
+        //         break;
+        //     // default:
+        //     //     break;
+        // }
+        AlertTypeText.text = alertMessages[errorCode].AlertType;
+        MessageNameText.text = alertMessages[errorCode].AlertMessageName;
+        MessageText.text = alertMessages[errorCode].AlertMessageText;
+    }
+
+    public void ActivateAlertMessagesPanel()
+    {
+        AlertMessagePanel.SetActive(true);
+    }
+
+    public void ResetAlertMessagesSettings()
+    {
+        AlertTypeText.text = "";
+        MessageNameText.text = "";
+        MessageText.text = "";
+    }
+
+    // public void OnAlertMessageWindowClose()
+    // {
+    //     sendAlertMessage -= d;
+    // }
 
     void ClearCreateAccountInputFields()
     {
@@ -402,12 +488,20 @@ public class UIManager : MonoBehaviour
 
     public void CreateNewAccount()
     {
+        for (int i = 0; i < validEmails.Length; i++)
+            if (!UserAccountInputFieldData.NewAccountCredentials[1].text.Contains("@" + validEmails[i]))
+            {
+                SetAlertMessageText(7);
+                ActivateAlertMessagesPanel();
+                return;
+            }
+
         //if(CheckIfAccountDataIsValid())
         StartCoroutine(APIRequestManager.CreateUserAccount(
-            UserAccountInputFieldData.NewAccountCredentials[0].text, 
-            UserAccountInputFieldData.NewAccountCredentials[1].text, 
-            UserAccountInputFieldData.NewAccountCredentials[2].text,
-            alertMessages));
+            UserAccountInputFieldData.NewAccountCredentials[0].text,
+            UserAccountInputFieldData.NewAccountCredentials[1].text,
+            UserAccountInputFieldData.NewAccountCredentials[2].text/* ,
+            alertMessages */));
         ClearCreateAccountInputFields();
         // SendAlert();
     }
@@ -415,7 +509,7 @@ public class UIManager : MonoBehaviour
     // public void SendAlert(AlertMessagesSO[] alertMessage)
     // {
     //     // APIRequestManager.AssignAlertMessages(alertMessage);
-        
+
     //     // for (int i = 0; i < alertMessage.Length; i++)
     //     // {
     //     //     this.AlertTypeText.text = alertMessage[i].AlertType;
@@ -424,12 +518,6 @@ public class UIManager : MonoBehaviour
     //     // }
     // }
 
-    public void SendAlert(AlertMessagesSO alertMessage)
-    {
-        this.AlertTypeText.text = alertMessage.AlertType;
-        this.MessageNameText.text = alertMessage.AlertMessageName;
-        this.MessageText.text = alertMessage.AlertMessageText;
-    }
 
     void ClearAccountLoginInputFields()
     {
@@ -441,21 +529,32 @@ public class UIManager : MonoBehaviour
     public void AccountLogin()
     {
         StartCoroutine(APIRequestManager.UserAccountLogin(
-            UserAccountInputFieldData.AccountLoginCredentials[0].text, 
-            UserAccountInputFieldData.AccountLoginCredentials[1].text,
-            alertMessages));
+            UserAccountInputFieldData.AccountLoginCredentials[0].text,
+            UserAccountInputFieldData.AccountLoginCredentials[1].text/* ,
+            alertMessages */));
         ClearAccountLoginInputFields();
         //StartCoroutine(APIRequestManager.UserAccountLogin(UserAccountLoginInputFields[0].text, UserAccountLoginInputFields[1].text));
     }
 
-    public void CheckAndActivatePromoCode(Text promoCode)
+    void ClearPromoCodeInputField()
     {
-        StartCoroutine(APIRequestManager.CheckIfPromoCodeIsValid(
-            promoCode.text,
-            alertMessages));
+        PromoCodeInputField.text = "";
     }
 
-    public void DeletePlayerSave(int saveFileIndex)
+    public void CheckAndActivatePromoCode()
+    {
+        StartCoroutine(APIRequestManager.CheckIfPromoCodeIsValid(
+            PromoCodeInputField.text/* ,
+            alertMessages */));
+        ClearPromoCodeInputField();
+    }
+
+    public void DeletePlayerLocalSave()
+    {
+        
+    }
+
+    public void DeletePlayerCloudSave(int saveFileIndex)
     {
         //Debug.Log(SaveManager.SaveFiles.ElementAt(saveFileIndex));
     }
