@@ -266,6 +266,7 @@ public class GameManager : MonoBehaviour
     //    }        
     //}
 
+
     public void EnableGameoverMenu()
     {
         gameOverMenu.SetActive(true);

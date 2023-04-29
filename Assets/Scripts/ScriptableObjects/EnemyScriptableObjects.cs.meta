@@ -3,7 +3,9 @@ guid: 552e8ca2b927c7f46846560994852b8a
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - enemySprite: {instanceID: 0}
+  - coinDrop: {fileID: 1111767403153969194, guid: e2071f2212695e5499459fc28750f419, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

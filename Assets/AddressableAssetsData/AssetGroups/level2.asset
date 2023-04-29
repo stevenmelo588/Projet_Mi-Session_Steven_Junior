@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: level2
+  m_Name: Level2
   m_EditorClassIdentifier: 
-  m_GroupName: level2
+  m_GroupName: Level2
   m_Data:
     m_SerializedData: []
-  m_GUID: 34e163e7b4d03c141847e9e0282d22b1
+  m_GUID: 2d544413efe094741a16977c5bce0d90
   m_SerializeEntries:
   - m_GUID: 8399467f2863e484abca315fdce4402d
-    m_Address: Scene2
+    m_Address: Assets/Scenes/Scene2.unity
     m_ReadOnly: 0
     m_SerializedLabels:
     - Level2
@@ -26,5 +26,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: a931f753e1356c34092fc0687cc21638, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 9e3280de95c573c408cb11fd2e66ffaf, type: 2}
-    - {fileID: 11400000, guid: e33061660e3e7e74a88e42b661798487, type: 2}
+    - {fileID: 11400000, guid: 2215ca88851cc9f4ba2e749de509b42d, type: 2}
+    - {fileID: 11400000, guid: 9b77ef80836ba4345a4a9aa35755e4f6, type: 2}

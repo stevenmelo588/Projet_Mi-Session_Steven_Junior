@@ -18,10 +18,10 @@ public class EnemySpawner : MonoBehaviour
     private static EnemySpawner instance = null;
     public static EnemySpawner Instance { get => (instance == null) ? instance = FindObjectOfType<EnemySpawner>() : instance; }
     
-    public int TotalEnemyCount = 100;
+    public int TotalEnemyCount = 50;
         //= GameManager.Instance.totalEnemyCount;
 
-    private const int MAX_ENEMY_COUNT = 300;
+    private const int MAX_ENEMY_COUNT = 150;
     public static int enemyCount = 0;
 
     public int enemySpawnRateAmount = 4;
@@ -39,6 +39,7 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        enemyCount = 0;
         StartCoroutine(SpawnCoroutine());
     }
 
@@ -56,6 +57,7 @@ public class EnemySpawner : MonoBehaviour
             factory = HardEnemyFactory.Instance;
             yield return new WaitForSeconds(30); // Waits 1 minute before changing factory
         }
+
     }
 
     Vector2 RandomPositionAroundPlayer() => (Vector2)GameManager.Instance.Player.transform.position + (Random.insideUnitCircle * _SpawnRadius);

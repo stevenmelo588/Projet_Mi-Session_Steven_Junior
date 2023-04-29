@@ -3,7 +3,14 @@ guid: c8640fbc00d33e84aa2de710fbea5ef3
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - enemyScriptableOBJ: {instanceID: 0}
+  - enemyHealthController: {instanceID: 0}
+  - enemySpriteRenderer: {instanceID: 0}
+  - enemyRigidbody2D: {instanceID: 0}
+  - enemyCollider: {instanceID: 0}
+  - EnemyAnimator: {instanceID: 0}
+  - coin: {fileID: 1111767403153969194, guid: e2071f2212695e5499459fc28750f419, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

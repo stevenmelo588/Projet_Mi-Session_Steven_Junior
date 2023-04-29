@@ -285,6 +285,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  lootDrop: {fileID: 1111767403153969194, guid: e2071f2212695e5499459fc28750f419, type: 3}
 --- !u!114 &3770884836591509021
 MonoBehaviour:
   m_ObjectHideFlags: 0

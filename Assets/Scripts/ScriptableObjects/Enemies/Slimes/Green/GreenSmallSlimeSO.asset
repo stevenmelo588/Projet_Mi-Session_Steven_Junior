@@ -24,3 +24,4 @@ MonoBehaviour:
   deathState: DEATH_STATE
   attackStateRight: ATTACK_STATE_RIGHT
   attackStateLeft: ATTACK_STATE_LEFT
+  coinDrop: {fileID: 0}

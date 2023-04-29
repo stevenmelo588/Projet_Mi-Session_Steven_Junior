@@ -22,9 +22,11 @@ public class Enemy : MonoBehaviour
 
     public Animator EnemyAnimator;
 
+    private GameObject coin;
     private void Awake()
     {
         enemyHealthController.InitEnemyHealth(enemyScriptableOBJ.MaxHealth);
+        coin = enemyScriptableOBJ.CoinDrop;
     }
     void Start()
     {
@@ -54,6 +56,10 @@ public class Enemy : MonoBehaviour
     {
         enemyCollider.enabled = false;
         StartCoroutine(DisableEnemy());
+
+        enemyScriptableOBJ.CoinDrop.SetActive(true);
+
+        enemyScriptableOBJ.CoinDrop.transform.parent = null;
     }
 
     public void MoveToPlayer()

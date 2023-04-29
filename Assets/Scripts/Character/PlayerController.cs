@@ -31,6 +31,9 @@ public class PlayerController : MonoBehaviour
     public const string PLAYER_ATTACK = "PLAYER_ATTACK";
     public const string PLAYER_DEATH = "PLAYER_DEATH";
 
+    public int coins;
+
+    public static PlayerController playerStats;
 
 
     // Start is called before the first frame update
@@ -39,6 +42,19 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+     void Awake()
+    {
+        if (playerStats != null)
+        {
+            Destroy(playerStats);
+        }
+        else
+        {
+            playerStats = this;
+        }
+        DontDestroyOnLoad(this);
     }
 
     void FixedUpdate()

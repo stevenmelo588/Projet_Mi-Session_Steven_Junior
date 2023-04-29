@@ -13,6 +13,8 @@ public class EnemyHealthController : MonoBehaviour
     public UnityEvent<GameObject> OnHitEvent;
     public UnityEvent OnDeathEvent;
 
+    public GameObject lootDrop;
+
     // private void Awake() {
     //     // if (Instance != this)
     //         Instance = this;
@@ -43,6 +45,8 @@ public class EnemyHealthController : MonoBehaviour
             OnDeathEvent?.Invoke();
             IsDead = true;
             EnemySpawner.enemyCount--;
+            Instantiate(lootDrop, transform.position, Quaternion.identity);
+
         }
     }
 

@@ -26,6 +26,8 @@ public class EnemyScriptableObjects : ScriptableObject
     [SerializeField] private string attackStateRight = "ATTACK_STATE_RIGHT";
     [SerializeField] private string attackStateLeft = "ATTACK_STATE_LEFT";
 
+    [Header("Enenmy loopDrop")]
+    [SerializeField] private GameObject coinDrop;
     //private const float EnemySpeed = speed;
 
     public float ShieldHealth { get => shieldHealth; set => shieldHealth = value; }
@@ -60,6 +62,7 @@ public class EnemyScriptableObjects : ScriptableObject
     public string ATTACK_STATE_LEFT { get => attackStateLeft; set => attackStateLeft = value; }
     //public string WALK_STATE { get => walkState; set => walkState = value; }
     public float KnockBackResetDelay { get => knockBackResetDelay; set => knockBackResetDelay = value; }
+    public GameObject CoinDrop { get => coinDrop; set => coinDrop = value; }
 
     public EnemyScriptableObjects()
     {
@@ -70,5 +73,6 @@ public class EnemyScriptableObjects : ScriptableObject
         this.KnockBack = knockBack;
         this.KnockBackResetDelay = knockBackResetDelay;
         this.EnemySprite = enemySprite;
+        this.CoinDrop = coinDrop;
     }
 }
